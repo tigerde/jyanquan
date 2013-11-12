@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+<package name="user" extends="json-default" namespace="/user">
+	<!-- 登录验证 -->
+	<action name="login" class="com.anquan.jy.action.LoginAction" method="login">
+		<result type="json">
+			<param name="result">result</param>
+		</result>
+	</action>
+</package>
+<package name="driver" extends="json-default" namespace="/driver">
+	<!-- 获取司机列表 -->
+	<action name="all" class="com.anquan.jy.action.DriversAction" method="getdrivers">
+		<result type="json">
+			<param name="root">json</param>
+		</result>
+	</action>
+	<!-- 显示驾驶员信息 -->
+	<action name="showinfo" class="com.anquan.jy.action.DriversAction" method="showinfo">
+		<result name="success">/driverinfo.jsp</result>
+	</action>
+	<!-- 获取驾驶员信息 -->
+	<action name="driverinfo" class="com.anquan.jy.action.DriversAction" method="driverinfo">
+		<result type="json">
+			<param name="root">json</param>
+		</result>
+	</action>
+	<!-- 修改驾驶员信息 -->
+	<action name="driveredit" class="com.anquan.jy.action.DriversAction" method="driveredit">
+		<result type="json">
+			<param name="root">json</param>
+		</result>
+	</action>
+	<!-- 修改驾驶员简单信息 -->
+	<action name="driversimpleedit" class="com.anquan.jy.action.DriversAction" method="driversimpleedit">
+		<result type="json">
+			<param name="root">json</param>
+		</result>
+	</action>
+</package>
+<package name="driverinfo" extends="json-default" namespace="/driverinfo">
+	<!-- 获取司机交通事故列表 -->
+	<action name="trafficaccident" class="com.anquan.jy.action.TrafficAccidentAction" method="getDriverTrafficAccident">
+		<result type="json">
+			<param name="root">json</param>
+		</result>
+	</action>
+	<!-- 获取司机交通事故列表 -->
+	<action name="edittrafficaccident" class="com.anquan.jy.action.TrafficAccidentAction" method="editTrafficAccident">
+		<result type="json">
+			<param name="root">json</param>
+		</result>
+	</action>
+	<!-- 获取司机交通违章列表-->
+	<action name="trafficviolation" class="com.anquan.jy.action.TrafficViolationAction" method="getDriverTrafficViolation">
+		<result type="json">
+			<param name="root">json</param>
+		</result>
+	</action>
+	<!-- 维护驾驶员交通事故信息 -->
+	<action name="edittrafficviolation" class="com.anquan.jy.action.TrafficViolationAction" method="editTrafficViolation">
+		<result type="json">
+			<param name="root">json</param>
+		</result>
+	</action>
+	
+</package>
+</struts>    
