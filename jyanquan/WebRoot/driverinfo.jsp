@@ -8,14 +8,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
 <html>
   <head>
-    <base href="<%=basePath%>">
+    <base href="<%=basePath%>"/>
     
     <title>My JSP 'index.jsp' starting page</title>
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
+	<meta http-equiv="pragma" content="no-cache"/>
+	<meta http-equiv="cache-control" content="no-cache"/>
+	<meta http-equiv="expires" content="0"/>    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
+	<meta http-equiv="description" content="This is my page"/>
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
@@ -38,6 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript"
 			src="jquery-ui/js/i18n/jquery.ui.datepicker-zh-CN.js"></script>
 	<script type="text/javascript">
+	//个人信息
 	$(function()
  {
 		 $("#driverinfo").jqGrid({
@@ -206,6 +207,62 @@ closeAfterEdit:true});
 
 });
 
+//驾驶员行为列表
+		$(function()
+ {
+		 $("#behavior").jqGrid({
+     url:"<%=basePath%>driverinfo/trafficviolation?id=<%=request.getParameter("id").toString()%>",
+     datatype: "json",
+     mtype:"POST",
+     
+     colNames:['ID','驾驶员','车牌号','所属公司','违章时间','违章地点','违章原因','扣分','罚款','绩效考核时间'],
+     colModel:[
+    		// {name: 'modify', width:20, fixed:false, resize:false, formatter:'actions',formatoptions:{keys:true}},
+             {name:'id',index:'id', width:15, sorttype:"String",editable:false,search: false},
+             {name:'name',index:'name', width:20,sorttype:"String",editable:false},
+             {name:'company',index:'company', width:20,editable:true},
+             {name:'bus_number',index:'bus_number', width:20,editable:true},
+             {name:'violation_date',index:'violation_date', width:30,editable:true,editoptions:{size:20, dataInit:function(e1){ $(e1).datepicker({
+      		           changeYear: true,
+            		   changeMonth: true});}}},
+             {name:'violation_location',index:'violation_location', width:20,editable:true},
+             {name:'violation_reason',index:'violation_reason', width:20,editable:true},
+             {name:'points',index:'points', width:20,editable:true},
+             {name:'fine',index:'fine', width:20,editable:true},
+             {name:'assessment_date',index:'assessment_date', width:30,editable:true,editoptions:{size:20, dataInit:function(e1){ $(e1).datepicker({
+      		           changeYear: true,
+            		   changeMonth: true});}}}
+			 ],
+     sortname:'id',
+     sortorder:'asc',
+     viewrecords:true,
+     rowNum:20,
+     width:1200,
+     //autowidth:true,
+     //autoheight:true,
+     height: 100,
+     rowList:[20,30,50],
+     editurl:"<%=basePath%>driverinfo/edittrafficviolation?idcard=<%=request.getParameter("id").toString()%>",
+     jsonReader: {
+     root:"account",               // 数据行（默认为：rows）
+     page: "pageNo",          // 当前页
+     total: "pageCount",        // 总页数
+     records: "dataCount",      // 总记录数
+     repeatitems : false        // 设置成false，在后台设置值的时候，可以乱序。且并非每个值都得设
+     },
+    prmNames:{
+        rows:"pageSize",
+        page:"pageNo"
+         },	  
+     pager:"#behaviorPager",
+     // ondblClickRow: function(id){ showuserinfo(id);},	
+     caption: "行为"
+      
+   });
+   jQuery("#behavior").jqGrid('navGrid','#traffic_violationPager',{edit:true,add:true,del:true,search:false,closeAfterAdd: true,
+closeAfterEdit:true});
+
+});
 
 
 

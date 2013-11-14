@@ -4,7 +4,7 @@ import net.sf.json.JSONObject;
 
 import com.anquan.jy.biz.DriverBiz;
 import com.anquan.jy.biz.DriverInfoBiz;
-import com.anquan.jy.dao.DriverInfoDao;
+import com.anquan.jy.dao.TrafficViolationDao;
 import com.anquan.jy.entity.Driver;
 import com.anquan.jy.entity.TrafficAccident;
 import com.anquan.jy.entity.TrafficViolation;
@@ -48,7 +48,7 @@ public class TrafficViolationAction extends ActionSupport {
 	public void editTrafficViolation(){
 		if (oper.equals("del")){
 			//删除
-			DriverInfoDao.delTrafficViolation(id);
+			TrafficViolationDao.delTrafficViolation(id);
 			
 		}else if (oper.equals("edit")) {
 			//编辑
@@ -68,7 +68,7 @@ public class TrafficViolationAction extends ActionSupport {
 			
 			ta.setModifi_datetime(TimeFormatUtil.getcurrentTime());
 			ta.setModifi_user_id("1");
-			 DriverInfoDao.updateTrafficViolation(ta);
+			 TrafficViolationDao.updateTrafficViolation(ta);
 		}else if(oper.equals("add")){
 			TrafficViolation ta=new TrafficViolation();
 			ta.setIdcard(idcard);
@@ -85,7 +85,7 @@ public class TrafficViolationAction extends ActionSupport {
 			ta.setModifi_user_id("1");
 			ta.setCreate_datetime(TimeFormatUtil.getcurrentTime());
 			ta.setCreate_user_id("1");
-			DriverInfoDao.insertTrafficViolation(ta);
+			TrafficViolationDao.insertTrafficViolation(ta);
 		}
 	}
 	public int getPageNo() {

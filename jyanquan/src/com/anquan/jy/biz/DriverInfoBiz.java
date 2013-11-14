@@ -6,7 +6,8 @@ import java.util.List;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-import com.anquan.jy.dao.DriverInfoDao;
+import com.anquan.jy.dao.TrafficAccidentDao;
+import com.anquan.jy.dao.TrafficViolationDao;
 import com.anquan.jy.entity.TrafficAccident;
 import com.anquan.jy.entity.TrafficViolation;
 import com.anquan.jy.util.Page;
@@ -25,12 +26,12 @@ public class DriverInfoBiz {
 	public static JSONObject getTrafficAccidents(int pageNo, int pageSize, String sidx, String sord,String id){
 		int i=0;
 		Page page=new Page();
-		i=DriverInfoDao.getTrafficAccidentCount(id);
+		i=TrafficAccidentDao.getTrafficAccidentCount(id);
 		page.setDataCount(i);
 		page.setPageNo(pageNo);
 		page.setPageSize(pageSize);
 		String sql=" order by "+sidx+" "+sord+" limit "+ (page.getPageNo() - 1) * page.getPageSize() + "," + page.getPageSize();
-		List<TrafficAccident> list=DriverInfoDao.getTrafficAccidents(id,sql);
+		List<TrafficAccident> list=TrafficAccidentDao.getTrafficAccidents(id,sql);
 		System.out.println(list.size());
 		JSONArray jsonArray=JSONArray.fromObject(list);		
 		JSONObject json=new JSONObject();
@@ -52,12 +53,12 @@ public class DriverInfoBiz {
 	public static JSONObject getTrafficViolations(int pageNo, int pageSize, String sidx, String sord,String id){
 		int i=0;
 		Page page=new Page();
-		i=DriverInfoDao.getTrafficViolationCount(id);
+		i=TrafficViolationDao.getTrafficViolationCount(id);
 		page.setDataCount(i);
 		page.setPageNo(pageNo);
 		page.setPageSize(pageSize);
 		String sql=" order by "+sidx+" "+sord+" limit "+ (page.getPageNo() - 1) * page.getPageSize() + "," + page.getPageSize();
-		List<TrafficViolation> list=DriverInfoDao.getTrafficViolations(id,sql);
+		List<TrafficViolation> list=TrafficViolationDao.getTrafficViolations(id,sql);
 		System.out.println(list.size());
 		JSONArray jsonArray=JSONArray.fromObject(list);		
 		JSONObject json=new JSONObject();
