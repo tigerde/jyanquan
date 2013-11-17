@@ -10,10 +10,11 @@ public class Discipline {
 	private String id;
 	private String idcard;// '身份证',
 	private String position;// '职位',
+	private String name;
 	private String discipline_date;// '违章违纪时间',
 	private String description;// '事由',
 	private String gist;// '处罚依据',
-	private double fine;// 罚款金额
+	private String fine;// 罚款金额
 	private String fine_number;// '罚款单号',
 	private String create_datetime;// ,
 	private String modifi_datetime;// ,
@@ -69,11 +70,11 @@ public class Discipline {
 		this.gist = gist;
 	}
 
-	public double getFine() {
+	public String getFine() {
 		return fine;
 	}
 
-	public void setFine(double fine) {
+	public void setFine(String fine) {
 		this.fine = fine;
 	}
 
@@ -123,6 +124,14 @@ public class Discipline {
 
 	public void setDeleted(int deleted) {
 		this.deleted = deleted;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 }

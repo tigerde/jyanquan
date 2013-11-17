@@ -215,21 +215,20 @@ closeAfterEdit:true});
      datatype: "json",
      mtype:"POST",
      
-     colNames:['ID','驾驶员','地点','时间','经过','结果','类型'],
+     colNames:['ID','驾驶员','时间','地点','经过','结果','类型'],
      colModel:[
     		// {name: 'modify', width:20, fixed:false, resize:false, formatter:'actions',formatoptions:{keys:true}},
              {name:'id',index:'id', width:15, sorttype:"String",editable:false,search: false},
              {name:'name',index:'name', width:20,sorttype:"String",editable:false},
             // {name:'incident_date',index:'incident_date', width:20,editable:true},
-            {name:'incident_location',index:'incident_location', width:20,editable:true},
              {name:'incident_date',index:'incident_date', width:30,editable:true,editoptions:{size:20, dataInit:function(e1){ $(e1).datepicker({
       		           changeYear: true,
             		   changeMonth: true});}}},
-             
+             {name:'incident_location',index:'incident_location', width:20,editable:true},
              
              {name:'description',index:'description', width:20,editable:true},
              {name:'result',index:'result', width:20,editable:true},
-             {name:'type',index:'type', width:30,editable:true,edittype:"select",editoptions:{value:"1:良好行为;2:不良行为"}}
+             {name:'type',index:'type', width:30,editable:true,edittype:"select",editoptions:{value:'1:良好行为;2:不良行为'}}
 			 ],
      sortname:'id',
      sortorder:'asc',
@@ -262,60 +261,7 @@ closeAfterEdit:true});
 
 });
 
-//驾驶员违章列表
-		$(function()
- {
-		 $("#discipline").jqGrid({
-     url:"<%=basePath%>driverinfo/discipline?id=<%=request.getParameter("id").toString()%>",
-     datatype: "json",
-     mtype:"POST",
-     
-     colNames:['ID','驾驶员','职位','违章违纪时间','事由','处罚依据','罚款单号'],
-     colModel:[
-    		// {name: 'modify', width:20, fixed:false, resize:false, formatter:'actions',formatoptions:{keys:true}},
-             {name:'id',index:'id', width:15, sorttype:"String",editable:false,search: false},
-             {name:'name',index:'name', width:20,sorttype:"String",editable:false},
-             {name:'position',index:'position', width:20,editable:true},
-           
-             {name:'discipline_date',index:'discipline_date', width:30,editable:true,editoptions:{size:20, dataInit:function(e1){ $(e1).datepicker({
-      		           changeYear: true,
-            		   changeMonth: true});}}},
-              {name:'description',index:'description', width:20,editable:true},
-             
-             {name:'gist',index:'gist', width:20,editable:true},
-             {name:'fine',index:'fine', width:20,editable:true}
-            
-			 ],
-     sortname:'id',
-     sortorder:'asc',
-     viewrecords:true,
-     rowNum:20,
-     width:1200,
-     //autowidth:true,
-     //autoheight:true,
-     height: 100,
-     rowList:[20,30,50],
-     editurl:"<%=basePath%>driverinfo/editdiscipline?idcard=<%=request.getParameter("id").toString()%>",
-     jsonReader: {
-     root:"account",               // 数据行（默认为：rows）
-     page: "pageNo",          // 当前页
-     total: "pageCount",        // 总页数
-     records: "dataCount",      // 总记录数
-     repeatitems : false        // 设置成false，在后台设置值的时候，可以乱序。且并非每个值都得设
-     },
-    prmNames:{
-        rows:"pageSize",
-        page:"pageNo"
-         },	  
-     pager:"#disciplinePager",
-     // ondblClickRow: function(id){ showuserinfo(id);},	
-     caption: "驾驶员违章违纪"
-      
-   });
-   jQuery("#discipline").jqGrid('navGrid','#disciplinePager',{edit:true,add:true,del:true,search:false,closeAfterAdd: true,
-closeAfterEdit:true});
 
-});
 
 
 	</script>

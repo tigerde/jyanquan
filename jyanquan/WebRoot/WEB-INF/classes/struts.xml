@@ -46,7 +46,7 @@
 			<param name="root">json</param>
 		</result>
 	</action>
-	<!-- 获取司机交通事故列表 -->
+	<!-- 维护司机交通事故列表 -->
 	<action name="edittrafficaccident" class="com.anquan.jy.action.TrafficAccidentAction" method="editTrafficAccident">
 		<result type="json">
 			<param name="root">json</param>
@@ -65,5 +65,31 @@
 		</result>
 	</action>
 	
+	<!-- 获取司机交通违章列表-->
+	<action name="behavior" class="com.anquan.jy.action.BehaviorAction" method="getBehavior">
+		<result type="json">
+			<param name="root">json</param>
+		</result>
+	</action>
+	<!-- 维护驾驶员交通事故信息 -->
+	<action name="editbehavior" class="com.anquan.jy.action.BehaviorAction" method="editBehavior">
+		<result type="json">
+			<param name="root">json</param>
+		</result>
+	</action>
+	
+	
+	<!-- 获取司机违章违纪列表-->
+	<action name="discipline" class="com.anquan.jy.action.DisciplineAction" method="getDiscipline">
+		<result type="json">
+			<param name="root">json</param>
+		</result>
+	</action>
+	<!-- 维护驾驶员违章违纪信息 -->
+	<action name="editdiscipline" class="com.anquan.jy.action.DisciplineAction" method="editDiscipline">
+		<result type="json">
+			<param name="root">json</param>
+		</result>
+	</action>
 </package>
 </struts>    

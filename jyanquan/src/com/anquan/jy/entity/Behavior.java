@@ -13,7 +13,7 @@ public class Behavior {
 	private String incident_location;// '地点',
 	private String description;// '经过',
 	private String result;// '结果',
-	private int type;// '行为类型：1良好行为，2不良行为',
+	private String type;// '行为类型：1良好行为，2不良行为',
 	private String create_datetime;// NULL,
 	private String modifi_datetime;//
 	private String create_user_id;//
@@ -61,10 +61,10 @@ public class Behavior {
 	public void setResult(String result) {
 		this.result = result;
 	}
-	public int getType() {
+	public String getType() {
 		return type;
 	}
-	public void setType(int type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 	public String getCreate_datetime() {
