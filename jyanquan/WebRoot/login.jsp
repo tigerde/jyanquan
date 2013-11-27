@@ -9,12 +9,12 @@
 <HTML xmlns="http://www.w3.org/1999/xhtml">
 <HEAD><TITLE>用户登录</TITLE>
 <base href="<%=basePath%>">
-<LINK href="images/Default.css" type=text/css rel=stylesheet>
-<LINK href="images/xtree.css" type=text/css rel=stylesheet>
-<LINK href="images/User_Login.css" type=text/css rel=stylesheet>
+<LINK href="jifolder/images/Default.css" type=text/css rel=stylesheet>
+<LINK href="jifolder/images/xtree.css" type=text/css rel=stylesheet>
+<LINK href="jifolder/images/User_Login.css" type=text/css rel=stylesheet>
 <META http-equiv=Content-Type content="text/html; charset=gb2312">
 <META content="MSHTML 6.00.6000.16674" name=GENERATOR>
-<script src="<%=path%>/js/jquery-1.6.1.min.js" type="text/javascript"></script>
+<script src="<%=path%>/jifolder/js/jquery-1.6.1.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 	$(function(){
 	 $("#IbtnEnter").click(function (){
@@ -94,7 +94,7 @@
     <LI class=user_main_r>
     <INPUT class="IbtnEnterCssClass" id="IbtnEnter" style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
     onclick='javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions("IbtnEnter", "", true, "", "", false, false))' 
-    type="image" src="images/user_botton.gif" name="IbtnEnter"> </LI></UL>
+    type="image" src="jifolder/images/user_botton.gif" name="IbtnEnter"> </LI></UL>
   <DD id=user_bottom>
   <UL>
     <LI class=user_bottom_l></LI>

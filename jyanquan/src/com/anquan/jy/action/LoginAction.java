@@ -1,11 +1,8 @@
 package com.anquan.jy.action;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-
 import com.anquan.jy.biz.UserBiz;
 import com.anquan.jy.entity.User;
-import com.anquan.jy.util.DBConn;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class LoginAction extends ActionSupport {
@@ -23,6 +20,8 @@ public class LoginAction extends ActionSupport {
 		if(user!=null){
 			result="1";
 		}
+		ActionContext.getContext().getSession().put("userid", user.getUser_id());
+		ActionContext.getContext().getSession().put("name", user.getName());
 		return SUCCESS;
 	}
 

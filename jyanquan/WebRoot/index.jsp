@@ -21,23 +21,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 	<link rel="stylesheet" type="text/css" media="screen"
-			href="jquery.jqGrid-4.5.4/css/ui.jqgrid.css" />
+			href="jifolder/jquery.jqGrid-4.5.4/css/ui.jqgrid.css" />
 		<link rel="stylesheet" type="text/css" media="screen"
-			href="jquery-ui/themes/redmond/jquery-ui1.css" />
+			href="jifolder/jquery-ui/themes/redmond/jquery-ui1.css" />
 			
 			<!-- 引入jQuery -->
-		<script src="jquery.jqGrid-4.5.4/js/jquery-1.9.0.min.js"
+		<script src="jifolder/jquery.jqGrid-4.5.4/js/jquery-1.9.0.min.js"
 			type="text/javascript"></script>
 		<script type="text/javascript"
-			src="jquery.jqGrid-4.5.4/js/i18n/grid.locale-cn.js"></script>
+			src="jifolder/jquery.jqGrid-4.5.4/js/i18n/grid.locale-cn.js"></script>
 		<script type="text/javascript"
-			src="jquery.jqGrid-4.5.4/js/jquery.jqGrid.min.js"></script>
-		<script type="text/javascript" src="jquery-ui/js/jquery-ui1.js"></script>
+			src="jifolder/jquery.jqGrid-4.5.4/js/jquery.jqGrid.min.js"></script>
+		<script type="text/javascript" src="jifolder/jquery-ui/js/jquery-ui1.js"></script>
 		<script type="text/javascript"
-			src="jquery-ui/js/jquery-ui-timepicker-addon.js"></script>
+			src="jifolder/jquery-ui/js/jquery-ui-timepicker-addon.js"></script>
 
 		<script type="text/javascript"
-			src="jquery-ui/js/i18n/jquery.ui.datepicker-zh-CN.js"></script>
+			src="jifolder/jquery-ui/js/i18n/jquery.ui.datepicker-zh-CN.js"></script>
 	<script type="text/javascript">
 	$(function()
  {
