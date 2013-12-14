@@ -316,8 +316,113 @@ closeAfterEdit:true});
 closeAfterEdit:true});
 
 });
+//驾驶员安全里程
+		$(function()
+ {
+		 $("#safetydistance").jqGrid({
+     url:"<%=basePath%>driverinfo/safetydistance?id=<%=request.getParameter("id").toString()%>",
+     datatype: "json",
+     mtype:"POST",
+     
+     colNames:['ID','车号','年份','月份','月度安全里程','年度安全里程','累计安全里程'],
+     colModel:[
+    		// {name: 'modify', width:20, fixed:false, resize:false, formatter:'actions',formatoptions:{keys:true}},
+             {name:'id',index:'id', width:15, sorttype:"String",editable:false,search: false},
+             {name:'bus_number',index:'bus_number', width:20,sorttype:"String",editable:true},
+             {name:'year',index:'year', width:20,sorttype:"String",editable:true,edittype:"select",editoptions:{value:"2013:2013;2014:2014;2015:2015;2016:2016"}},
+             {name:'month',index:'month', width:20,editable:true,edittype:"select",editoptions:{value:"1:1;2:2;3:3;4:4;5:5;6:6;7:7;8:8;9:9;10:10;11:11;12:12;0:年度"}},
+           
+             {name:'mileage_month',index:'mileage_month', width:30,editable:true},
+             {name:'mileage_year',index:'mileage_year', width:20,editable:true},
+             {name:'mileage',index:'mileage', width:20,editable:true}
+             
+			 ],
+     sortname:'id',
+     sortorder:'asc',
+     viewrecords:true,
+     rowNum:20,
+     width:1200,
+     //autowidth:true,
+     //autoheight:true,
+     height: 100,
+     rowList:[20,30,50],
+     editurl:"<%=basePath%>driverinfo/editsafetydistance?idcard=<%=request.getParameter("id").toString()%>",
+     jsonReader: {
+     root:"account",               // 数据行（默认为：rows）
+     page: "pageNo",          // 当前页
+     total: "pageCount",        // 总页数
+     records: "dataCount",      // 总记录数
+     repeatitems : false        // 设置成false，在后台设置值的时候，可以乱序。且并非每个值都得设
+     },
+    prmNames:{
+        rows:"pageSize",
+        page:"pageNo"
+         },	  
+     pager:"#safetydistancePager",
+     // ondblClickRow: function(id){ showuserinfo(id);},	
+     caption: "驾驶员安全里程"
+      
+   });
+   jQuery("#safetydistance").jqGrid('navGrid','#safetydistancePager',{edit:true,add:true,del:true,search:false,closeAfterAdd: true,
+closeAfterEdit:true});
 
+});
 
+// 机械事故  traffic_accident
+		$(function()
+ {
+		 $("#mechaccident").jqGrid({
+     url:"<%=basePath%>driverinfo/mechaccident?id=<%=request.getParameter("id").toString()%>",
+     datatype: "json",
+     mtype:"POST",
+     
+     colNames:['ID','驾驶员','分公司','线路','事故车号','事故时间','事故地点','事故经过','责任','处理情况','汇报人'],
+     colModel:[
+    		// {name: 'modify', width:20, fixed:false, resize:false, formatter:'actions',formatoptions:{keys:true}},
+             {name:'id',index:'id', width:15, sorttype:"String",editable:false,search: false},
+             {name:'name',index:'name', width:20,sorttype:"String",editable:false},
+             {name:'company',index:'company', width:20,editable:true},
+             {name:'line_number',index:'line_number', width:50,sorttype:"String",editable:true,editrules:{required:true}},
+             {name:'bus_number',index:'bus_number', width:20,editable:true},
+             {name:'accident_date',index:'accident_date', width:30,editable:true,editoptions:{size:20, dataInit:function(e1){ $(e1).datepicker({
+      		           changeYear: true,
+            		   changeMonth: true});}}},
+             {name:'accident_location',index:'accident_location', width:20,editable:true},
+             {name:'accident_summary',index:'accident_summary', width:20,editable:true},
+             {name:'accident_liability',index:'accident_liability', width:20,editable:true},
+             {name:'result',index:'result', width:20,editable:true},
+             {name:'reporter',index:'reporter', width:20,editable:true}
+			 ],
+     sortname:'id',
+     sortorder:'asc',
+     viewrecords:true,
+     rowNum:20,
+     width:1200,
+     //autowidth:true,
+     //autoheight:true,
+     height: 100,
+     rowList:[20,30,50],
+     editurl:"<%=basePath%>driverinfo/editmechaccident?idcard=<%=request.getParameter("id").toString()%>",
+     jsonReader: {
+     root:"account",               // 数据行（默认为：rows）
+     page: "pageNo",          // 当前页
+     total: "pageCount",        // 总页数
+     records: "dataCount",      // 总记录数
+     repeatitems : false        // 设置成false，在后台设置值的时候，可以乱序。且并非每个值都得设
+     },
+    prmNames:{
+        rows:"pageSize",
+        page:"pageNo"
+         },	  
+     pager:"#mechaccidentPager",
+     // ondblClickRow: function(id){ showuserinfo(id);},	
+     caption: "机械事故"
+      
+   });
+   jQuery("#mechaccident").jqGrid('navGrid','#mechaccidentPager',{edit:true,add:true,del:true,search:false,closeAfterAdd: true,
+closeAfterEdit:true});
+
+});
 	</script>
 	
   </head>
@@ -329,8 +434,11 @@ closeAfterEdit:true});
     <table id="traffic_accident"></table>
 	<div id="traffic_accidentPager"></div>
 	<!-- 交通违章 -->
-    <table id="traffic_violation"></table>
-	<div id="traffic_violationPager"></div>
+    <table id="mechaccident"></table>
+	<div id="mechaccidentPager"></div>
+	<!-- 机械事故 -->
+    <table id="traffic_accident"></table>
+	<div id="traffic_accidentPager"></div>
 	<!-- 行为 -->
     <table id="behavior"></table>
 	<div id="behaviorPager"></div>
@@ -340,6 +448,14 @@ closeAfterEdit:true});
 	<!-- 违规行为 -->
     <table id="discipline"></table>
 	<div id="disciplinePager"></div>
+	
+	<!-- 安全里程 -->
+    <table id="safetydistance"></table>
+	<div id="safetydistancePager"></div>
+	
+	<!-- 公司 -->
+    <table id="company"></table>
+	<div id="companyPager"></div>
 	
 
 

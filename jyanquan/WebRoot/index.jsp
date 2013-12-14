@@ -62,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      rowNum:20,
      autowidth:true,
      //autoheight:true,
-     height: 300,
+     height: 600,
      rowList:[20,30,50],
      editurl:"<%=basePath%>driver/driversimpleedit",
      jsonReader: {

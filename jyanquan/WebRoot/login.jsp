@@ -85,12 +85,15 @@
       
       <li><SPAN id="msg"  style="DISPLAY: none; COLOR: red"></SPAN></li>
       </UL>
+      <!-- 
     <UL>
       <LI class=user_main_text>Cookie： </LI>
      <LI class=user_main_input><SELECT id=DropExpiration name=DropExpiration> 
         <OPTION value=None selected>不保存</OPTION> <OPTION value=Day>保存一天</OPTION> 
         <OPTION value=Month>保存一月</OPTION> <OPTION 
-      value=Year>保存一年</OPTION></SELECT> </LI></UL></DIV></LI>
+      value=Year>保存一年</OPTION></SELECT> </LI></UL> 
+       -->
+      </DIV></LI>
     <LI class=user_main_r>
     <INPUT class="IbtnEnterCssClass" id="IbtnEnter" style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
     onclick='javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions("IbtnEnter", "", true, "", "", false, false))' 

@@ -35,11 +35,9 @@ public class LoginFilter implements Filter {
 			if(pattern.length>2&&(pattern[2].equals("jifolder")||pattern[2].equals("login.jsp"))){
 				
 			}else if(pattern.length>3&&pattern[2].equals("user")&&pattern[3].equals("login")){
-				
+				System.out.println("执行登录");
 			}else {
 				res.sendRedirect("/jyanquan/login.jsp");
-				//res.getWriter()
-				//System.out.println("123");
 			}
 		}
 		filter.doFilter(req, res);

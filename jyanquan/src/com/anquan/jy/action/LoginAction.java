@@ -22,7 +22,9 @@ public class LoginAction extends ActionSupport {
 		}
 		ActionContext.getContext().getSession().put("userid", user.getUser_id());
 		ActionContext.getContext().getSession().put("name", user.getName());
+		System.out.println(user.getUser_id());
 		return SUCCESS;
+		
 	}
 
 	 

@@ -91,5 +91,31 @@
 			<param name="root">json</param>
 		</result>
 	</action>
+	
+	<!-- 获取司机违章违纪列表-->
+	<action name="safetydistance" class="com.anquan.jy.action.SafetyDistanceAction" method="getSafetyDistance">
+		<result type="json">
+			<param name="root">json</param>
+		</result>
+	</action>
+	<!-- 维护驾驶员违章违纪信息 -->
+	<action name="editsafetydistance" class="com.anquan.jy.action.SafetyDistanceAction" method="editSafetyDistance">
+		<result type="json">
+			<param name="root">json</param>
+		</result>
+	</action>
+	
+		<!-- 获取司机机械事故列表 -->
+	<action name="mechaccident" class="com.anquan.jy.action.MechAccidentAction" method="getMechAccident">
+		<result type="json">
+			<param name="root">json</param>
+		</result>
+	</action>
+	<!-- 维护司机机械事故列表 -->
+	<action name="editmechaccident" class="com.anquan.jy.action.MechAccidentAction" method="editMechAccident">
+		<result type="json">
+			<param name="root">json</param>
+		</result>
+	</action>
 </package>
 </struts>    
