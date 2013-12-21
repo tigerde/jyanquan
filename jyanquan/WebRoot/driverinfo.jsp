@@ -72,6 +72,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      rowNum:20,
      width:1200,
      //autowidth:false,
+     //autoheight:true,
      height: 50,
      rowList:[20,30,50],
      editurl:"<%=basePath%>driver/driveredit",
@@ -126,8 +127,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      rowNum:20,
      width:1200,
      //autowidth:true,
-     //autoheight:true,
-     height: 100,
+     autoheight:true,
+     //height: 100,
      rowList:[20,30,50],
      editurl:"<%=basePath%>driverinfo/edittrafficaccident?idcard=<%=request.getParameter("id").toString()%>",
      jsonReader: {
@@ -182,8 +183,8 @@ closeAfterEdit:true});
      rowNum:20,
      width:1200,
      //autowidth:true,
-     //autoheight:true,
-     height: 100,
+     autoheight:true,
+     //height: 100,
      rowList:[20,30,50],
      editurl:"<%=basePath%>driverinfo/edittrafficviolation?idcard=<%=request.getParameter("id").toString()%>",
      jsonReader: {
@@ -237,8 +238,8 @@ closeAfterEdit:true});
      rowNum:20,
      width:1200,
      //autowidth:true,
-     //autoheight:true,
-     height: 100,
+     autoheight:true,
+     //height: 100,
      rowList:[20,30,50],
      editurl:"<%=basePath%>driverinfo/editbehavior?idcard=<%=request.getParameter("id").toString()%>",
      jsonReader: {
@@ -292,8 +293,8 @@ closeAfterEdit:true});
      rowNum:20,
      width:1200,
      //autowidth:true,
-     //autoheight:true,
-     height: 100,
+     autoheight:true,
+     //height: 100,
      rowList:[20,30,50],
      editurl:"<%=basePath%>driverinfo/editdiscipline?idcard=<%=request.getParameter("id").toString()%>",
      jsonReader: {
@@ -343,8 +344,8 @@ closeAfterEdit:true});
      rowNum:20,
      width:1200,
      //autowidth:true,
-     //autoheight:true,
-     height: 100,
+     autoheight:true,
+     //height: 100,
      rowList:[20,30,50],
      editurl:"<%=basePath%>driverinfo/editsafetydistance?idcard=<%=request.getParameter("id").toString()%>",
      jsonReader: {
@@ -434,17 +435,15 @@ closeAfterEdit:true});
     <table id="traffic_accident"></table>
 	<div id="traffic_accidentPager"></div>
 	<!-- 交通违章 -->
-    <table id="mechaccident"></table>
-	<div id="mechaccidentPager"></div>
+    <table id="traffic_violation"></table>
+	<div id="traffic_violationPager"></div>
 	<!-- 机械事故 -->
-    <table id="traffic_accident"></table>
-	<div id="traffic_accidentPager"></div>
+	<table id="mechaccident"></table>
+	<div id="mechaccidentPager"></div>
 	<!-- 行为 -->
     <table id="behavior"></table>
 	<div id="behaviorPager"></div>
-	<!-- 安全里程 -->
-    <table id="safety_distance"></table>
-	<div id="safety_distancePager"></div>
+
 	<!-- 违规行为 -->
     <table id="discipline"></table>
 	<div id="disciplinePager"></div>
