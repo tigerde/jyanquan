@@ -22,6 +22,65 @@ public class DisciplineDao {
 	 * @param id 驾驶员db中id
 	 * @return
 	 */
+	public static List<Discipline> getDisciplines(String starttime,String endtime,String sql){
+		List<Discipline> list=new ArrayList<Discipline>();
+		Connection conn=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		
+		try {
+			conn=DBConn.getConnection();
+			ps=conn.prepareStatement("select  b.name,b.company,a.*  from discipline a left join drivers b on a.idcard=b.id where  a.deleted=0 and b.deleted=0 and a.discipline_date between ? and ? "+sql);
+			ps.setString(1, starttime);
+			ps.setString(2, endtime);
+			rs=ps.executeQuery();
+			while(rs.next()){
+				
+				Discipline be=new Discipline();
+				be.setId(rs.getString("id"));
+				be.setIdcard(rs.getString("idcard"));
+				be.setName(rs.getString("name"));
+				
+				be.setPosition(rs.getString("position"));
+				be.setDiscipline_date(rs.getString("discipline_date"));
+				be.setDescription(rs.getString("description"));
+				be.setGist(rs.getString("gist"));
+				be.setFine(rs.getString("fine"));
+				
+				
+				try {
+					be.setCreate_datetime(TimeFormatUtil.getTime(rs.getString("create_datetime")));
+				}catch (ParseException e) {
+					log.error("getDisciplines时间格式化错误", e);
+				}catch (NullPointerException e){
+					log.error("getDisciplines时间格式化错误", e);
+				}
+				
+				try {
+					be.setModifi_datetime(TimeFormatUtil.getTime(rs.getString("modifi_datetime")));
+				}catch (ParseException e) {
+					log.error("getDisciplines时间格式化错误", e);
+				}catch (NullPointerException e){
+					log.error("getDisciplines时间格式化错误", e);
+				}
+				
+				be.setCreate_user_id(rs.getString("create_user_id"));
+				be.setModifi_user_id(rs.getString("modifi_user_id"));
+				list.add(be);
+			}
+			
+		} catch (SQLException e) {
+			log.error("getDisciplines获取驾驶员行为信息", e);
+		}finally{
+			DBConn.close(rs, ps, conn);
+		}
+		return list;
+	}
+	/**
+	 * 获取驾驶员行为信息列表
+	 * @param id 驾驶员db中id
+	 * @return
+	 */
 	public static List<Discipline> getDisciplines(String id,String sql){
 		List<Discipline> list=new ArrayList<Discipline>();
 		Connection conn=null;
@@ -47,6 +106,64 @@ public class DisciplineDao {
 				be.setFine(rs.getString("fine"));
 				
 				 
+				try {
+					be.setCreate_datetime(TimeFormatUtil.getTime(rs.getString("create_datetime")));
+				}catch (ParseException e) {
+					log.error("getDisciplines时间格式化错误", e);
+				}catch (NullPointerException e){
+					log.error("getDisciplines时间格式化错误", e);
+				}
+				
+				try {
+					be.setModifi_datetime(TimeFormatUtil.getTime(rs.getString("modifi_datetime")));
+				}catch (ParseException e) {
+					log.error("getDisciplines时间格式化错误", e);
+				}catch (NullPointerException e){
+					log.error("getDisciplines时间格式化错误", e);
+				}
+				
+				be.setCreate_user_id(rs.getString("create_user_id"));
+				be.setModifi_user_id(rs.getString("modifi_user_id"));
+				list.add(be);
+			}
+			
+		} catch (SQLException e) {
+			log.error("getDisciplines获取驾驶员行为信息", e);
+		}finally{
+			DBConn.close(rs, ps, conn);
+		}
+		return list;
+	}
+	
+	/**
+	 * 获取驾驶员行为信息列表
+	 * @param id 驾驶员db中id
+	 * @return
+	 */
+	public static List<Discipline> getDisciplines(String sql){
+		List<Discipline> list=new ArrayList<Discipline>();
+		Connection conn=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		
+		try {
+			conn=DBConn.getConnection();
+			ps=conn.prepareStatement("select * from discipline where  deleted=0   "+sql);
+			rs=ps.executeQuery();
+			while(rs.next()){
+				
+				Discipline be=new Discipline();
+				be.setId(rs.getString("id"));
+				be.setIdcard(rs.getString("idcard"));
+				be.setName("");
+				
+				be.setPosition(rs.getString("position"));
+				be.setDiscipline_date(rs.getString("discipline_date"));
+				be.setDescription(rs.getString("description"));
+				be.setGist(rs.getString("gist"));
+				be.setFine(rs.getString("fine"));
+				
+				
 				try {
 					be.setCreate_datetime(TimeFormatUtil.getTime(rs.getString("create_datetime")));
 				}catch (ParseException e) {
@@ -247,6 +364,34 @@ public class DisciplineDao {
 		try {
 			ps=conn.prepareStatement("select count(*) count from discipline where idcard=? and deleted=0");
 			ps.setString(1, id);
+			rs=ps.executeQuery();
+			if(rs.next()){
+				i=rs.getInt("count");
+			}
+		} catch (SQLException e) {
+			log.error("getDisciplineCount获取驾驶员行为信息条数", e);
+		}finally{
+			DBConn.close(rs, ps, conn);
+		}
+		
+		return i;
+	}
+	/**
+	 * 获取某驾驶员行为数据总行数
+	 * @param id
+	 * @return
+	 */
+	public static int getDisciplineCount(String starttime,String endtime){
+		int i=0;
+		Connection conn=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		
+		conn=DBConn.getConnection();
+		try {
+			ps=conn.prepareStatement("select count(*) count from discipline a left join drivers b on a.idcard=b.id where  a.deleted=0 and b.deleted=0 and a.discipline_date between ? and ?");
+			ps.setString(1, starttime);
+			ps.setString(2, endtime);
 			rs=ps.executeQuery();
 			if(rs.next()){
 				i=rs.getInt("count");

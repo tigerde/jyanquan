@@ -4,7 +4,7 @@ import net.sf.json.JSONObject;
 
 import com.anquan.jy.biz.DriverBiz;
 import com.anquan.jy.biz.DriverInfoBiz;
-import com.anquan.jy.dao.MechAccidentDao;
+import com.anquan.jy.biz.SelectAllBiz;
 import com.anquan.jy.dao.TrafficAccidentDao;
 import com.anquan.jy.dao.TrafficViolationDao;
 import com.anquan.jy.entity.Driver;
@@ -12,7 +12,7 @@ import com.anquan.jy.entity.TrafficAccident;
 import com.anquan.jy.util.TimeFormatUtil;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class MechAccidentAction extends ActionSupport {
+public class SelectAllAction extends ActionSupport {
 	/**
 	 * 
 	 */
@@ -25,7 +25,9 @@ public class MechAccidentAction extends ActionSupport {
 	private String oper; // 增删改判断标记
 	private String id;
 	private JSONObject json;
-	
+	private String starttime;
+	private String endtime;
+	private String type;
 	private String idcard;// '身份证',
 	private String company;// '分公司',
 	private String line_number;// '线路',
@@ -38,36 +40,19 @@ public class MechAccidentAction extends ActionSupport {
 	private String result;// '处理情况',
 	private String reporter;// T '汇报人',
 	
-	private String starttime;
-	private String endtime;
 	
-	public String getStarttime() {
-		return starttime;
-	}
-	public void setStarttime(String starttime) {
-		this.starttime = starttime;
-	}
-	public String getEndtime() {
-		return endtime;
-	}
-	public void setEndtime(String endtime) {
-		this.endtime = endtime;
-	}
-	public String getMechAccident(){
-		if(id!=null&&!id.equals("")){
-			json=DriverInfoBiz.getMechAccidents(pageNo, pageSize, sidx, sord, id);
-		}else{
-			json=DriverInfoBiz.getMechAccidents(pageNo, pageSize, sidx, sord, starttime,endtime);
-		}
+	
+	public String getDriverAccident(){
+		json=SelectAllBiz.getAccidents(pageNo, pageSize, sidx, sord, id,starttime,endtime,type);
 		return SUCCESS;
 	}
 	/**
-	 * 编辑驾驶员机械事故信息
+	 * 编辑驾驶员交通事故信息
 	 */
-	public void editMechAccident(){
+	public void editTrafficAccident(){
 		if (oper.equals("del")){
 			//删除
-			MechAccidentDao.delTrafficAccident(id);
+			TrafficAccidentDao.delTrafficAccident(id);
 			
 		}else if (oper.equals("edit")) {
 			//编辑
@@ -86,7 +71,7 @@ public class MechAccidentAction extends ActionSupport {
 			ta.setReporter(reporter);
 			ta.setModifi_datetime(TimeFormatUtil.getcurrentTime());
 			ta.setModifi_user_id("1");
-			MechAccidentDao.updateTrafficAccident(ta);
+			TrafficAccidentDao.updateTrafficAccident(ta);
 		}else if(oper.equals("add")){
 			TrafficAccident ta=new TrafficAccident();
 			ta.setIdcard(idcard);
@@ -104,7 +89,7 @@ public class MechAccidentAction extends ActionSupport {
 			ta.setModifi_user_id("1");
 			ta.setCreate_datetime(TimeFormatUtil.getcurrentTime());
 			ta.setCreate_user_id("1");
-			MechAccidentDao.insertTrafficAccident(ta);
+			TrafficAccidentDao.insertTrafficAccident(ta);
 		}
 	}
 	
@@ -226,6 +211,24 @@ public class MechAccidentAction extends ActionSupport {
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	public void setStarttime(String starttime) {
+		this.starttime = starttime;
+	}
+	public String getStarttime() {
+		return starttime;
+	}
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
+	}
+	public String getEndtime() {
+		return endtime;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getType() {
+		return type;
 	}
 	
 	

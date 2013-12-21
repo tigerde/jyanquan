@@ -23,6 +23,66 @@ public class TrafficViolationDao {
 	 * @param id 驾驶员db中id
 	 * @return
 	 */
+	public static List<TrafficViolation> getTrafficViolations(String starttime,String endtime,String sql){
+		List<TrafficViolation> list=new ArrayList<TrafficViolation>();
+		Connection conn=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		
+		try {
+			conn=DBConn.getConnection();
+			ps=conn.prepareStatement("select b.name,b.company,a.* from traffic_violation a left join drivers b on a.idcard=b.id where  a.deleted=0 and b.deleted=0 and   a.violation_date between ? and ? "+sql);
+			ps.setString(1, starttime);
+			ps.setString(2, endtime);
+			rs=ps.executeQuery();
+			while(rs.next()){
+				
+				TrafficViolation ta=new TrafficViolation();
+				ta.setId(rs.getString("id"));
+				ta.setIdcard(rs.getString("idcard"));
+				ta.setCompany(rs.getString("company"));
+				ta.setBus_number(rs.getString("bus_number"));
+				ta.setName(rs.getString("name"));
+				ta.setViolation_date(rs.getString("violation_date"));
+				ta.setViolation_location(rs.getString("violation_location"));
+				ta.setViolation_reason(rs.getString("violation_reason"));
+				ta.setPoints(rs.getInt("points"));
+				ta.setFine(rs.getDouble("fine"));
+				ta.setAssessment_date(rs.getString("assessment_date"));
+				
+				try {
+					ta.setCreate_datetime(TimeFormatUtil.getTime(rs.getString("create_datetime")));
+				}catch (ParseException e) {
+					log.error("getTrafficViolations时间格式化错误", e);
+				}catch (NullPointerException e){
+					log.error("getTrafficViolations时间格式化错误", e);
+				}
+				
+				try {
+					ta.setModifi_datetime(TimeFormatUtil.getTime(rs.getString("modifi_datetime")));
+				}catch (ParseException e) {
+					log.error("getTrafficViolations时间格式化错误", e);
+				}catch (NullPointerException e){
+					log.error("getTrafficViolations时间格式化错误", e);
+				}
+				
+				ta.setCreate_user_id(rs.getString("create_user_id"));
+				ta.setModifi_user_id(rs.getString("modifi_user_id"));
+				list.add(ta);
+			}
+			
+		} catch (SQLException e) {
+			log.error("getTrafficViolations获取驾驶员交通违章信息", e);
+		}finally{
+			DBConn.close(rs, ps, conn);
+		}
+		return list;
+	}
+	/**
+	 * 获取驾驶员交通违章信息列表
+	 * @param id 驾驶员db中id
+	 * @return
+	 */
 	public static List<TrafficViolation> getTrafficViolations(String id,String sql){
 		List<TrafficViolation> list=new ArrayList<TrafficViolation>();
 		Connection conn=null;
@@ -253,6 +313,34 @@ public class TrafficViolationDao {
 		try {
 			ps=conn.prepareStatement("select count(*) count from traffic_violation where idcard=? and deleted=0");
 			ps.setString(1, id);
+			rs=ps.executeQuery();
+			if(rs.next()){
+				i=rs.getInt("count");
+			}
+		} catch (SQLException e) {
+			log.error("getTrafficViolationCount获取驾驶员违章信息条数", e);
+		}finally{
+			DBConn.close(rs, ps, conn);
+		}
+		
+		return i;
+	}
+	/**
+	 * 获取某驾驶员交通违章数据总行数
+	 * @param id
+	 * @return
+	 */
+	public static int getTrafficViolationCount(String starttime,String endtime){
+		int i=0;
+		Connection conn=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		
+		conn=DBConn.getConnection();
+		try {
+			ps=conn.prepareStatement("select count(*) count from traffic_violation a left join drivers b on a.idcard=b.id where  a.deleted=0 and b.deleted=0 and   a.violation_date between ? and ?");
+			ps.setString(1, starttime);
+			ps.setString(2, endtime);
 			rs=ps.executeQuery();
 			if(rs.next()){
 				i=rs.getInt("count");

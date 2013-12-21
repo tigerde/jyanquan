@@ -36,10 +36,27 @@ public class TrafficViolationAction extends ActionSupport {
 	private double fine;// '罚款',
 	private String assessment_date;// '绩效考核时间',
 	
+	private String starttime;
+	private String endtime;
 	
-	
+	public String getStarttime() {
+		return starttime;
+	}
+	public void setStarttime(String starttime) {
+		this.starttime = starttime;
+	}
+	public String getEndtime() {
+		return endtime;
+	}
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
+	}
 	public String getDriverTrafficViolation(){
-		json=DriverInfoBiz.getTrafficViolations(pageNo, pageSize, sidx, sord, id);
+		if(id!=null&&!id.equals("")){
+			json=DriverInfoBiz.getTrafficViolations(pageNo, pageSize, sidx, sord, id);
+		}else{
+			json=DriverInfoBiz.getTrafficViolations(pageNo, pageSize, sidx, sord,starttime,endtime);
+		}
 		return SUCCESS;
 	}
 	/**

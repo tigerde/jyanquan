@@ -30,6 +30,33 @@ public class DriverInfoBiz {
 	 * @param id
 	 * @return
 	 */
+	public static JSONObject getTrafficAccidents(int pageNo, int pageSize, String sidx, String sord,String starttime,String endtime){
+		int i=0;
+		Page page=new Page();
+		i=TrafficAccidentDao.getTrafficAccidentCount(starttime,endtime);
+		page.setDataCount(i);
+		page.setPageNo(pageNo);
+		page.setPageSize(pageSize);
+		String sql=" order by "+sidx+" "+sord+" limit "+ (page.getPageNo() - 1) * page.getPageSize() + "," + page.getPageSize();
+		List<TrafficAccident> list=TrafficAccidentDao.getTrafficAccidents(starttime,endtime,sql);
+		 
+		JSONArray jsonArray=JSONArray.fromObject(list);		
+		JSONObject json=new JSONObject();
+		json.accumulate("account", jsonArray);
+		json.accumulate("pageCount", page.getPageCount());
+		json.accumulate("pageNo", page.getPageNo());
+		json.accumulate("dataCount", page.getDataCount());
+		return json;
+	}
+	/**
+	 * 获取驾驶员交通事故信息列表
+	 * @param pageNo
+	 * @param pageSize
+	 * @param sidx
+	 * @param sord
+	 * @param id
+	 * @return
+	 */
 	public static JSONObject getTrafficAccidents(int pageNo, int pageSize, String sidx, String sord,String id){
 		int i=0;
 		Page page=new Page();
@@ -39,6 +66,33 @@ public class DriverInfoBiz {
 		page.setPageSize(pageSize);
 		String sql=" order by "+sidx+" "+sord+" limit "+ (page.getPageNo() - 1) * page.getPageSize() + "," + page.getPageSize();
 		List<TrafficAccident> list=TrafficAccidentDao.getTrafficAccidents(id,sql);
+		System.out.println(list.size());
+		JSONArray jsonArray=JSONArray.fromObject(list);		
+		JSONObject json=new JSONObject();
+		json.accumulate("account", jsonArray);
+		json.accumulate("pageCount", page.getPageCount());
+		json.accumulate("pageNo", page.getPageNo());
+		json.accumulate("dataCount", page.getDataCount());
+		return json;
+	}
+	/**
+	 * 获取驾驶员交通事故信息列表
+	 * @param pageNo
+	 * @param pageSize
+	 * @param sidx
+	 * @param sord
+	 * @param id
+	 * @return
+	 */
+	public static JSONObject getMechAccidents(int pageNo, int pageSize, String sidx, String sord,String starttime,String endtime){
+		int i=0;
+		Page page=new Page();
+		i=MechAccidentDao.getTrafficAccidentCount(starttime,endtime);
+		page.setDataCount(i);
+		page.setPageNo(pageNo);
+		page.setPageSize(pageSize);
+		String sql=" order by "+sidx+" "+sord+" limit "+ (page.getPageNo() - 1) * page.getPageSize() + "," + page.getPageSize();
+		List<TrafficAccident> list=MechAccidentDao.getTrafficAccidents(starttime,endtime,sql);
 		System.out.println(list.size());
 		JSONArray jsonArray=JSONArray.fromObject(list);		
 		JSONObject json=new JSONObject();
@@ -84,6 +138,32 @@ public class DriverInfoBiz {
 	 * @param id
 	 * @return
 	 */
+	public static JSONObject getTrafficViolations(int pageNo, int pageSize, String sidx, String sord,String starttime,String endtime){
+		int i=0;
+		Page page=new Page();
+		i=TrafficViolationDao.getTrafficViolationCount(starttime,endtime);
+		page.setDataCount(i);
+		page.setPageNo(pageNo);
+		page.setPageSize(pageSize);
+		String sql=" order by "+sidx+" "+sord+" limit "+ (page.getPageNo() - 1) * page.getPageSize() + "," + page.getPageSize();
+		List<TrafficViolation> list=TrafficViolationDao.getTrafficViolations(starttime,endtime,sql);
+		JSONArray jsonArray=JSONArray.fromObject(list);		
+		JSONObject json=new JSONObject();
+		json.accumulate("account", jsonArray);
+		json.accumulate("pageCount", page.getPageCount());
+		json.accumulate("pageNo", page.getPageNo());
+		json.accumulate("dataCount", page.getDataCount());
+		return json;
+	}
+	/**
+	 * 获取驾驶员交通违章列表
+	 * @param pageNo
+	 * @param pageSize
+	 * @param sidx
+	 * @param sord
+	 * @param id
+	 * @return
+	 */
 	public static JSONObject getTrafficViolations(int pageNo, int pageSize, String sidx, String sord,String id){
 		int i=0;
 		Page page=new Page();
@@ -94,6 +174,32 @@ public class DriverInfoBiz {
 		String sql=" order by "+sidx+" "+sord+" limit "+ (page.getPageNo() - 1) * page.getPageSize() + "," + page.getPageSize();
 		List<TrafficViolation> list=TrafficViolationDao.getTrafficViolations(id,sql);
 		System.out.println(list.size());
+		JSONArray jsonArray=JSONArray.fromObject(list);		
+		JSONObject json=new JSONObject();
+		json.accumulate("account", jsonArray);
+		json.accumulate("pageCount", page.getPageCount());
+		json.accumulate("pageNo", page.getPageNo());
+		json.accumulate("dataCount", page.getDataCount());
+		return json;
+	}
+	/**
+	 * 获取驾驶员行为列表
+	 * @param pageNo
+	 * @param pageSize
+	 * @param sidx
+	 * @param sord
+	 * @param id
+	 * @return
+	 */
+	public static JSONObject getBehaviors(int pageNo, int pageSize, String sidx, String sord,String starttime,String endtime){
+		int i=0;
+		Page page=new Page();
+		i=BehaviorDao.getBehaviorCount(starttime,endtime);
+		page.setDataCount(i);
+		page.setPageNo(pageNo);
+		page.setPageSize(pageSize);
+		String sql=" order by "+sidx+" "+sord+" limit "+ (page.getPageNo() - 1) * page.getPageSize() + "," + page.getPageSize();
+		List<Behavior> list=BehaviorDao.getBehaviors(starttime,endtime, sql);
 		JSONArray jsonArray=JSONArray.fromObject(list);		
 		JSONObject json=new JSONObject();
 		json.accumulate("account", jsonArray);
@@ -129,6 +235,32 @@ public class DriverInfoBiz {
 		return json;
 	}
 	
+	/**
+	 * 获取驾驶员行为列表
+	 * @param pageNo
+	 * @param pageSize
+	 * @param sidx
+	 * @param sord
+	 * @param id
+	 * @return
+	 */
+	public static JSONObject getDisciplines(int pageNo, int pageSize, String sidx, String sord,String starttime,String endtime){
+		int i=0;
+		Page page=new Page();
+		i=DisciplineDao.getDisciplineCount(starttime,endtime);
+		page.setDataCount(i);
+		page.setPageNo(pageNo);
+		page.setPageSize(pageSize);
+		String sql=" order by "+sidx+" "+sord+" limit "+ (page.getPageNo() - 1) * page.getPageSize() + "," + page.getPageSize();
+		List<Discipline> list=DisciplineDao.getDisciplines(starttime,endtime, sql);
+		JSONArray jsonArray=JSONArray.fromObject(list);		
+		JSONObject json=new JSONObject();
+		json.accumulate("account", jsonArray);
+		json.accumulate("pageCount", page.getPageCount());
+		json.accumulate("pageNo", page.getPageNo());
+		json.accumulate("dataCount", page.getDataCount());
+		return json;
+	}
 	/**
 	 * 获取驾驶员行为列表
 	 * @param pageNo

@@ -22,6 +22,71 @@ public class BehaviorDao {
 	 * @param id 驾驶员db中id
 	 * @return
 	 */
+	public static List<Behavior> getBehaviors(String starttime,String endtime,String sql){
+		List<Behavior> list=new ArrayList<Behavior>();
+		Connection conn=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		
+		try {
+			conn=DBConn.getConnection();
+			ps=conn.prepareStatement("select b.name,b.company,a.*  from behavior a left join drivers b on a.idcard=b.id where  a.deleted=0 and b.deleted=0 and   a.incident_date between ? and ? "+sql);
+			ps.setString(1, starttime);
+			ps.setString(2, endtime);
+			rs=ps.executeQuery();
+			while(rs.next()){
+				
+				Behavior be=new Behavior();
+				be.setId(rs.getString("id"));
+				be.setIdcard(rs.getString("idcard"));
+				
+				be.setName(rs.getString("name"));
+				be.setIncident_date(rs.getString("incident_date"));
+				be.setIncident_location(rs.getString("incident_location"));
+				be.setDescription(rs.getString("description"));
+				be.setResult(rs.getString("result"));
+				
+				if (rs.getInt("type")==1) {
+					be.setType("良好行为");
+				} else {
+					be.setType("不良行为");
+				}
+				
+				//be.setType(rs.getString("type"));
+				
+				try {
+					be.setCreate_datetime(TimeFormatUtil.getTime(rs.getString("create_datetime")));
+				}catch (ParseException e) {
+					log.error("getBehaviors时间格式化错误", e);
+				}catch (NullPointerException e){
+					log.error("getBehaviors时间格式化错误", e);
+				}
+				
+				try {
+					be.setModifi_datetime(TimeFormatUtil.getTime(rs.getString("modifi_datetime")));
+				}catch (ParseException e) {
+					log.error("getBehaviors时间格式化错误", e);
+				}catch (NullPointerException e){
+					log.error("getBehaviors时间格式化错误", e);
+				}
+				
+				be.setCreate_user_id(rs.getString("create_user_id"));
+				be.setModifi_user_id(rs.getString("modifi_user_id"));
+				list.add(be);
+			}
+			
+		} catch (SQLException e) {
+			log.error("getBehaviors获取驾驶员行为信息", e);
+		}finally{
+			DBConn.close(rs, ps, conn);
+		}
+		return list;
+	}
+	/**
+	 * 获取驾驶员行为信息列表
+	 * @param id 驾驶员db中id
+	 * @return
+	 */
 	public static List<Behavior> getBehaviors(String id,String sql){
 		List<Behavior> list=new ArrayList<Behavior>();
 		Connection conn=null;
@@ -250,6 +315,34 @@ public class BehaviorDao {
 		try {
 			ps=conn.prepareStatement("select count(*) count from behavior where idcard=? and deleted=0");
 			ps.setString(1, id);
+			rs=ps.executeQuery();
+			if(rs.next()){
+				i=rs.getInt("count");
+			}
+		} catch (SQLException e) {
+			log.error("getBehaviorCount获取驾驶员行为信息条数", e);
+		}finally{
+			DBConn.close(rs, ps, conn);
+		}
+		
+		return i;
+	}
+	/**
+	 * 获取某驾驶员行为数据总行数
+	 * @param id
+	 * @return
+	 */
+	public static int getBehaviorCount(String starttime,String endtime){
+		int i=0;
+		Connection conn=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		
+		conn=DBConn.getConnection();
+		try {
+			ps=conn.prepareStatement("select count(*) count from behavior a left join drivers b on a.idcard=b.id where  a.deleted=0 and b.deleted=0 and a.incident_date between ? and ?");
+			ps.setString(1, starttime);
+			ps.setString(2, endtime);
 			rs=ps.executeQuery();
 			if(rs.next()){
 				i=rs.getInt("count");

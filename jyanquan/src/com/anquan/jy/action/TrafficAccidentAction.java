@@ -37,12 +37,33 @@ public class TrafficAccidentAction extends ActionSupport {
 	private String result;// '处理情况',
 	private String reporter;// T '汇报人',
 	
+	private String starttime;
+	private String endtime;
 	
-	
+	public String getStarttime() {
+		return starttime;
+	}
+	public void setStarttime(String starttime) {
+		this.starttime = starttime;
+	}
+	public String getEndtime() {
+		return endtime;
+	}
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
+	}
 	public String getDriverTrafficAccident(){
+		
+		if(id!=null&&!id.equals("")){
 		json=DriverInfoBiz.getTrafficAccidents(pageNo, pageSize, sidx, sord, id);
+		}else{
+			json=DriverInfoBiz.getTrafficAccidents(pageNo, pageSize, sidx, sord, starttime,endtime);
+		}
 		return SUCCESS;
 	}
+	
+	
+	
 	/**
 	 * 编辑驾驶员交通事故信息
 	 */

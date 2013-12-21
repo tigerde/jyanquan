@@ -30,11 +30,28 @@ public class BehaviorAction extends ActionSupport {
 	private String description;// '经过',
 	private String result;// '结果',
 	private String type;// '行为类型：1良好行为，2不良行为',
+	private String starttime;
+	private String endtime;
 	
 	
-	
+	public String getStarttime() {
+		return starttime;
+	}
+	public void setStarttime(String starttime) {
+		this.starttime = starttime;
+	}
+	public String getEndtime() {
+		return endtime;
+	}
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
+	}
 	public String getBehavior(){
-		json=DriverInfoBiz.getBehaviors(pageNo, pageSize, sidx, sord, id);
+		if(id!=null&&!id.equals("")){
+			json=DriverInfoBiz.getBehaviors(pageNo, pageSize, sidx, sord, id);
+		}else{
+			json=DriverInfoBiz.getBehaviors(pageNo, pageSize, sidx, sord, starttime,endtime);
+		}
 		return SUCCESS;
 	}
 	/**

@@ -117,5 +117,16 @@
 			<param name="root">json</param>
 		</result>
 	</action>
+	
+		
+</package>
+<!-- selectall/accidents -->
+<package name="selectall" extends="json-default" namespace="/selectall">
+	<!-- 获取司机事故列表 -->
+	<action name="accidents" class="com.anquan.jy.action.SelectAllAction" method="getDriverAccident">
+		<result type="json">
+			<param name="root">json</param>
+		</result>
+	</action>
 </package>
 </struts>    
