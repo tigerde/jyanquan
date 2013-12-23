@@ -6,6 +6,7 @@ import java.util.List;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import com.anquan.jy.dao.BadBehaviorDao;
 import com.anquan.jy.dao.BehaviorDao;
 import com.anquan.jy.dao.DisciplineDao;
 import com.anquan.jy.dao.MechAccidentDao;
@@ -226,6 +227,58 @@ public class DriverInfoBiz {
 		page.setPageSize(pageSize);
 		String sql=" order by "+sidx+" "+sord+" limit "+ (page.getPageNo() - 1) * page.getPageSize() + "," + page.getPageSize();
 		List<Behavior> list=BehaviorDao.getBehaviors(id, sql);
+		JSONArray jsonArray=JSONArray.fromObject(list);		
+		JSONObject json=new JSONObject();
+		json.accumulate("account", jsonArray);
+		json.accumulate("pageCount", page.getPageCount());
+		json.accumulate("pageNo", page.getPageNo());
+		json.accumulate("dataCount", page.getDataCount());
+		return json;
+	}
+	/**
+	 * 获取驾驶员行为列表
+	 * @param pageNo
+	 * @param pageSize
+	 * @param sidx
+	 * @param sord
+	 * @param id
+	 * @return
+	 */
+	public static JSONObject getBadBehaviors(int pageNo, int pageSize, String sidx, String sord,String starttime,String endtime){
+		int i=0;
+		Page page=new Page();
+		i=BadBehaviorDao.getBehaviorCount(starttime,endtime);
+		page.setDataCount(i);
+		page.setPageNo(pageNo);
+		page.setPageSize(pageSize);
+		String sql=" order by "+sidx+" "+sord+" limit "+ (page.getPageNo() - 1) * page.getPageSize() + "," + page.getPageSize();
+		List<Behavior> list=BadBehaviorDao.getBehaviors(starttime,endtime, sql);
+		JSONArray jsonArray=JSONArray.fromObject(list);		
+		JSONObject json=new JSONObject();
+		json.accumulate("account", jsonArray);
+		json.accumulate("pageCount", page.getPageCount());
+		json.accumulate("pageNo", page.getPageNo());
+		json.accumulate("dataCount", page.getDataCount());
+		return json;
+	}
+	/**
+	 * 获取驾驶员行为列表
+	 * @param pageNo
+	 * @param pageSize
+	 * @param sidx
+	 * @param sord
+	 * @param id
+	 * @return
+	 */
+	public static JSONObject getBadBehaviors(int pageNo, int pageSize, String sidx, String sord,String id){
+		int i=0;
+		Page page=new Page();
+		i=BadBehaviorDao.getBehaviorCount(id);
+		page.setDataCount(i);
+		page.setPageNo(pageNo);
+		page.setPageSize(pageSize);
+		String sql=" order by "+sidx+" "+sord+" limit "+ (page.getPageNo() - 1) * page.getPageSize() + "," + page.getPageSize();
+		List<Behavior> list=BadBehaviorDao.getBehaviors(id, sql);
 		JSONArray jsonArray=JSONArray.fromObject(list);		
 		JSONObject json=new JSONObject();
 		json.accumulate("account", jsonArray);

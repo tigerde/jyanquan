@@ -8,6 +8,9 @@
 			<param name="result">result</param>
 		</result>
 	</action>
+	<action name="logout" class="com.anquan.jy.action.LoginAction" method="logout">
+		<result>/login.jsp</result>
+	</action>
 </package>
 <package name="driver" extends="json-default" namespace="/driver">
 	<!-- 获取司机列表 -->
@@ -65,14 +68,27 @@
 		</result>
 	</action>
 	
-	<!-- 获取司机交通违章列表-->
+	<!-- 获取司机良好行为列表-->
 	<action name="behavior" class="com.anquan.jy.action.BehaviorAction" method="getBehavior">
 		<result type="json">
 			<param name="root">json</param>
 		</result>
 	</action>
-	<!-- 维护驾驶员交通事故信息 -->
+	<!-- 维护驾驶员良好行为信息 -->
 	<action name="editbehavior" class="com.anquan.jy.action.BehaviorAction" method="editBehavior">
+		<result type="json">
+			<param name="root">json</param>
+		</result>
+	</action>
+	
+	<!-- 获取司机不良行为列表-->
+	<action name="badbehavior" class="com.anquan.jy.action.BadBehaviorAction" method="getBehavior">
+		<result type="json">
+			<param name="root">json</param>
+		</result>
+	</action>
+	<!-- 维护驾驶员不良行为信息 -->
+	<action name="editbadbehavior" class="com.anquan.jy.action.BadBehaviorAction" method="editBehavior">
 		<result type="json">
 			<param name="root">json</param>
 		</result>

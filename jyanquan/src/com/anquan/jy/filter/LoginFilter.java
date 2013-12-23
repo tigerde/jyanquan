@@ -13,36 +13,40 @@ import javax.servlet.http.HttpServletResponse;
 
 public class LoginFilter implements Filter {
 
-	
 	public void destroy() {
 		// TODO Auto-generated method stub
 
 	}
 
-	
-	public void doFilter(ServletRequest freq, ServletResponse fres,
-			FilterChain filter) throws IOException, ServletException {
+	public void doFilter(ServletRequest freq, ServletResponse fres, FilterChain filter) throws IOException, ServletException {
 		// TODO Auto-generated method stub
-		HttpServletRequest req=(HttpServletRequest)freq;
-		HttpServletResponse res=(HttpServletResponse)fres;
-		String url=req.getRequestURI();
-		System.out.println(url);
-		String[] pattern=url.split("/");
-		System.out.println(url.split("/").length);
-		
-		System.out.println(req.getSession().getAttribute("userid")==null);
-		if(req.getSession().getAttribute("userid")==null){
-			if(pattern.length>2&&(pattern[2].equals("jifolder")||pattern[2].equals("login.jsp"))){
-				
-			}else if(pattern.length>3&&pattern[2].equals("user")&&pattern[3].equals("login")){
-				System.out.println("执行登录");
-			}else {
-				res.sendRedirect("/jyanquan/login.jsp");
-			}
-		}
-		filter.doFilter(req, res);
-	}
+		HttpServletRequest req = (HttpServletRequest) freq;
+		HttpServletResponse res = (HttpServletResponse) fres;
+		String url = req.getRequestURI();
+		 System.out.println(url);
+		String[] pattern = url.split("/");
+		// System.out.println(url.split("/").length);
 
+		// System.out.println(req.getSession().getAttribute("userid")==null);
+		if (req.getSession().getAttribute("userid") == null) {
+			if (pattern.length > 2 && (pattern[2].equals("jifolder") || pattern[2].equals("login.jsp"))) {
+				filter.doFilter(req, res);
+			} else if (pattern.length > 3 && pattern[2].equals("user") && pattern[3].equals("login")) {
+				filter.doFilter(req, res);
+			} else {
+				// System.out.println("为什么不能用");
+				// res.sendRedirect("/jyanquan/login.jsp");
+				res.getWriter().print("<script type='text/javascript'>top.location = '/jyanquan/login.jsp';</script>");
+			}
+		} else {
+			if (url.equals("/jyanquan/")||url.equals("/jyanquan/login.jsp")) {
+				res.sendRedirect("/jyanquan/index.jsp");
+			}
+			filter.doFilter(req, res);
+			
+		}
+
+	}
 
 	public void init(FilterConfig arg0) throws ServletException {
 		// TODO Auto-generated method stub

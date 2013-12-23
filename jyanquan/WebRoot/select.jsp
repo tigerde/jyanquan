@@ -54,7 +54,7 @@ String type=request.getParameter("type").toString();
 		     colModel:[
 		    		// {name: 'modify', width:20, fixed:false, resize:false, formatter:'actions',formatoptions:{keys:true}},
 		             {name:'id',index:'id', width:15, sorttype:"String",editable:false,search: false},
-		            {name:'idcard',index:'idcard',hidden: true, width:15, sorttype:"String",editable:false,search: false},
+		            {name:'idcard',index:'idcard',hidden: false, width:15, sorttype:"String",editable:false,search: false},
 		             {name:'name',index:'name', width:20,sorttype:"String",editable:false},
 		             {name:'company',index:'company', width:20,editable:true},
 		             {name:'line_number',index:'line_number', width:50,sorttype:"String",editable:true,editrules:{required:true}},
@@ -90,7 +90,7 @@ String type=request.getParameter("type").toString();
 		        page:"pageNo"
 		         },	  
 		     pager:"#selectPager",
-		      ondblClickRow: function(id,idcard){ showuserinfo(id,idcard);},	
+		      ondblClickRow: function(idcard){ showuserinfo(idcard);},	
 		     caption: "事故查询"
 		      
 		   });
@@ -150,7 +150,10 @@ String type=request.getParameter("type").toString();
         page:"pageNo"
          },	  
      pager:"#selectPager",
-     ondblClickRow: function(id,idcard){ showuserinfo(id,idcard);},
+     ondblClickRow: function(idcard){ 
+    	 var rowdata=jQuery("#select").jqGrid('getRowData',idcard);
+		 var emergencySencondMgrId = rowdata["idcard"];//列名和jGrid定义时候的值一样
+     	showuserinfo(emergencySencondMgrId);},
      caption: "交通事故"
       
    });
@@ -211,7 +214,10 @@ closeAfterEdit:true});
         page:"pageNo"
          },	  
      pager:"#selectPager",
-      ondblClickRow: function(id,idcard){ showuserinfo(id,idcard);},	
+      ondblClickRow: function(idcard){ 
+    	 var rowdata=jQuery("#select").jqGrid('getRowData',idcard);
+		 var emergencySencondMgrId = rowdata["idcard"];//列名和jGrid定义时候的值一样
+     	showuserinfo(emergencySencondMgrId);},	
      caption: "交通违章"
       
    });
@@ -232,7 +238,7 @@ closeAfterEdit:true});
      datatype: "json",
      mtype:"POST",
      
-     colNames:['ID','idcard','驾驶员','地点','时间','经过','结果','类型'],
+     colNames:['ID','idcard','驾驶员','地点','时间','经过','结果'],
      colModel:[
     		// {name: 'modify', width:20, fixed:false, resize:false, formatter:'actions',formatoptions:{keys:true}},
              {name:'id',index:'id', width:15, sorttype:"String",editable:false,search: false},
@@ -246,9 +252,8 @@ closeAfterEdit:true});
              
              
              {name:'description',index:'description', width:20,editable:true},
-             {name:'result',index:'result', width:20,editable:true},
-             {name:'type',index:'type', width:30,editable:true,edittype:"select",editoptions:{value:"1:良好行为;2:不良行为"}}
-			 ],
+             {name:'result',index:'result', width:20,editable:true}
+			],
      sortname:'id',
      sortorder:'asc',
      viewrecords:true,
@@ -271,8 +276,73 @@ closeAfterEdit:true});
         page:"pageNo"
          },	  
      pager:"#selectPager",
-      ondblClickRow: function(id,idcard){ showuserinfo(id,idcard);},	
+      ondblClickRow: function(idcard){ 
+    	 var rowdata=jQuery("#select").jqGrid('getRowData',idcard);
+		 var emergencySencondMgrId = rowdata["idcard"];//列名和jGrid定义时候的值一样
+     	showuserinfo(emergencySencondMgrId);},
      caption: "行为"
+      
+   });
+   jQuery("#select").jqGrid('navGrid','#selectPager',{edit:true,add:true,del:true,search:false,closeAfterAdd: true,
+closeAfterEdit:true});
+
+});
+
+<%
+}else if(type.equals("badbehavior")){
+%>
+
+//驾驶员不良行为列表
+		$(function()
+ {
+		 $("#select").jqGrid({
+     url:"<%=basePath%>driverinfo/badbehavior?starttime=<%=request.getParameter("starttime").toString()%>&endtime=<%=request.getParameter("endtime").toString()%>",
+     datatype: "json",
+     mtype:"POST",
+     
+     colNames:['ID','idcard','驾驶员','地点','时间','经过','结果'],
+     colModel:[
+    		// {name: 'modify', width:20, fixed:false, resize:false, formatter:'actions',formatoptions:{keys:true}},
+             {name:'id',index:'id', width:15, sorttype:"String",editable:false,search: false},
+              {name:'idcard',index:'idcard',hidden: true, width:15, sorttype:"String",editable:false,search: false},
+             {name:'name',index:'name', width:20,sortable:false,editable:false},
+            // {name:'incident_date',index:'incident_date', width:20,editable:true},
+            {name:'incident_location',index:'incident_location', width:20,editable:true},
+             {name:'incident_date',index:'incident_date', width:30,editable:true,editoptions:{size:20, dataInit:function(e1){ $(e1).datepicker({
+      		           changeYear: true,
+            		   changeMonth: true});}}},
+             
+             
+             {name:'description',index:'description', width:20,editable:true},
+             {name:'result',index:'result', width:20,editable:true}
+			],
+     sortname:'id',
+     sortorder:'asc',
+     viewrecords:true,
+     rowNum:20,
+     width:1200,
+     //autowidth:true,
+     autoheight:true,
+     //height: 100,
+     rowList:[20,30,50],
+     editurl:"<%=basePath%>driverinfo/editbadbehavior",
+     jsonReader: {
+     root:"account",               // 数据行（默认为：rows）
+     page: "pageNo",          // 当前页
+     total: "pageCount",        // 总页数
+     records: "dataCount",      // 总记录数
+     repeatitems : false        // 设置成false，在后台设置值的时候，可以乱序。且并非每个值都得设
+     },
+    prmNames:{
+        rows:"pageSize",
+        page:"pageNo"
+         },	  
+     pager:"#selectPager",
+      ondblClickRow: function(idcard){ 
+    	 var rowdata=jQuery("#select").jqGrid('getRowData',idcard);
+		 var emergencySencondMgrId = rowdata["idcard"];//列名和jGrid定义时候的值一样
+     	showuserinfo(emergencySencondMgrId);},	
+     caption: "不良行为"
       
    });
    jQuery("#select").jqGrid('navGrid','#selectPager',{edit:true,add:true,del:true,search:false,closeAfterAdd: true,
@@ -331,7 +401,10 @@ closeAfterEdit:true});
         page:"pageNo"
          },	  
      pager:"#selectPager",
-      ondblClickRow: function(id,idcard){ showuserinfo(id,idcard);},
+      ondblClickRow: function(idcard){ 
+    	 var rowdata=jQuery("#select").jqGrid('getRowData',idcard);
+		 var emergencySencondMgrId = rowdata["idcard"];//列名和jGrid定义时候的值一样
+     	showuserinfo(emergencySencondMgrId);},
      caption: "驾驶员违章违纪"
       
    });
@@ -392,7 +465,10 @@ closeAfterEdit:true});
         page:"pageNo"
          },	  
      pager:"#selectPager",
-      ondblClickRow: function(id,idcard){ showuserinfo(id,idcard);},	
+      ondblClickRow: function(idcard){ 
+    	 var rowdata=jQuery("#select").jqGrid('getRowData',idcard);
+		 var emergencySencondMgrId = rowdata["idcard"];//列名和jGrid定义时候的值一样
+     	showuserinfo(emergencySencondMgrId);},
      caption: "机械事故"
       
    });
@@ -402,7 +478,7 @@ closeAfterEdit:true});
 });
 	<%}%>	
 		 
-		function  showuserinfo(id,idcard){
+		function  showuserinfo(idcard){
 		 	window.open("<%=basePath%>driver/showinfo?id="+idcard);
 		 }
 	</script>

@@ -16,6 +16,8 @@
 <META content="MSHTML 6.00.6000.16674" name=GENERATOR>
 <script src="<%=path%>/jifolder/js/jquery-1.6.1.min.js" type="text/javascript"></script>
 <script type="text/javascript">
+	
+
 	$(function(){
 	 $("#IbtnEnter").click(function (){
 	 var username=$("#TxtUserName").val();

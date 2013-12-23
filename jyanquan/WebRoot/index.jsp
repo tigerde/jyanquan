@@ -144,6 +144,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+  <div>
+  	<label>欢迎</label>
+  	<label><%=session.getAttribute("name").toString()%></label>
+  	<a href="<%=basePath%>">用户管理</a>
+  	<a href="<%=basePath%>user/logout"><label>注销</label></a>
+  </div>
     <table id="gridTable"></table>
 	<div id="gridPager"></div>
 	<div>
@@ -153,7 +159,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<option value="traffic_accident" selected="selected">交通事故</option>
 			<option value="traffic_violation" >交通违章</option>
 			<option value="mechaccident" >机械事故</option>
-			<option value="behavior" >行为</option>
+			<option value="behavior" >良好行为</option>
+			<option value="badbehavior" >不良行为</option>
 			<option value="discipline" >违规行为</option>
 		</select>
 		<label>开始时间</label>

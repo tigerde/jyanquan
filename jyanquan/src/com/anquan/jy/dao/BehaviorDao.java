@@ -45,12 +45,7 @@ public class BehaviorDao {
 				be.setIncident_location(rs.getString("incident_location"));
 				be.setDescription(rs.getString("description"));
 				be.setResult(rs.getString("result"));
-				
-				if (rs.getInt("type")==1) {
-					be.setType("良好行为");
-				} else {
-					be.setType("不良行为");
-				}
+				 
 				
 				//be.setType(rs.getString("type"));
 				
@@ -110,11 +105,6 @@ public class BehaviorDao {
 				be.setDescription(rs.getString("description"));
 				be.setResult(rs.getString("result"));
 				
-				if (rs.getInt("type")==1) {
-					be.setType("良好行为");
-				} else {
-					be.setType("不良行为");
-				}
 				
 				//be.setType(rs.getString("type"));
 				 
@@ -174,8 +164,7 @@ public class BehaviorDao {
 				be.setIncident_date(rs.getString("incident_date"));
 				be.setIncident_location(rs.getString("incident_location"));
 				be.setDescription(rs.getString("description"));
-				be.setResult(rs.getString("result"));
-				be.setType(rs.getString("type"));
+				be.setResult(rs.getString("result")); 
 				 
 				try {
 					be.setCreate_datetime(TimeFormatUtil.getTime(rs.getString("create_datetime")));
@@ -244,16 +233,15 @@ public class BehaviorDao {
 		
 		try {
 			conn=DBConn.getConnection();
-			ps=conn.prepareStatement("update behavior set incident_date=?,incident_location=?,description=?,result=?,type=?," +
+			ps=conn.prepareStatement("update behavior set incident_date=?,incident_location=?,description=?,result=?," +
 			"modifi_datetime=?,modifi_user_id=?  where id=? ");
 			ps.setString(1, be.getIncident_date());
 			ps.setString(2, be.getIncident_location());
 			ps.setString(3, be.getDescription());
-			ps.setString(4, be.getResult());
-			ps.setString(5, be.getType());
-			ps.setString(6, be.getModifi_datetime());
-			ps.setString(7, be.getModifi_user_id());
-			ps.setString(8, be.getId());
+			ps.setString(4, be.getResult()); 
+			ps.setString(5, be.getModifi_datetime());
+			ps.setString(6, be.getModifi_user_id());
+			ps.setString(7, be.getId());
 			
 			i=ps.executeUpdate();
 		} catch (SQLException e) {
@@ -276,20 +264,19 @@ public class BehaviorDao {
 		
 		try {
 			conn=DBConn.getConnection();
-			ps=conn.prepareStatement("insert into  behavior (incident_date,incident_location,description,result,type," +
-			"modifi_datetime,modifi_user_id,idcard,create_datetime,create_user_id,deleted) values(?,?,?,?,?,?,?,?,?,?,0) ");
+			ps=conn.prepareStatement("insert into  behavior (incident_date,incident_location,description,result," +
+			"modifi_datetime,modifi_user_id,idcard,create_datetime,create_user_id,deleted) values(?,?,?,?,?,?,?,?,?,0) ");
 		
 			ps.setString(1, be.getIncident_date());
 			ps.setString(2, be.getIncident_location());
 			ps.setString(3, be.getDescription());
 			ps.setString(4, be.getResult());
-			ps.setString(5, be.getType());
 			
-			ps.setString(6, be.getModifi_datetime());
-			ps.setString(7, be.getModifi_user_id());
-			ps.setString(8, be.getIdcard());
-			ps.setString(9, be.getCreate_datetime());
-			ps.setString(10, be.getCreate_user_id());
+			ps.setString(5, be.getModifi_datetime());
+			ps.setString(6, be.getModifi_user_id());
+			ps.setString(7, be.getIdcard());
+			ps.setString(8, be.getCreate_datetime());
+			ps.setString(9, be.getCreate_user_id());
 			
 			i=ps.executeUpdate();
 			

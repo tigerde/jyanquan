@@ -208,7 +208,7 @@ closeAfterEdit:true});
 
 });
 
-//驾驶员行为列表
+//驾驶员良好行为列表
 		$(function()
  {
 		 $("#behavior").jqGrid({
@@ -216,7 +216,7 @@ closeAfterEdit:true});
      datatype: "json",
      mtype:"POST",
      
-     colNames:['ID','驾驶员','地点','时间','经过','结果','类型'],
+     colNames:['ID','驾驶员','地点','时间','经过','结果'],
      colModel:[
     		// {name: 'modify', width:20, fixed:false, resize:false, formatter:'actions',formatoptions:{keys:true}},
              {name:'id',index:'id', width:15, sorttype:"String",editable:false,search: false},
@@ -229,8 +229,7 @@ closeAfterEdit:true});
              
              
              {name:'description',index:'description', width:20,editable:true},
-             {name:'result',index:'result', width:20,editable:true},
-             {name:'type',index:'type', width:30,editable:true,edittype:"select",editoptions:{value:"1:良好行为;2:不良行为"}}
+             {name:'result',index:'result', width:20,editable:true}
 			 ],
      sortname:'id',
      sortorder:'asc',
@@ -255,10 +254,63 @@ closeAfterEdit:true});
          },	  
      pager:"#behaviorPager",
      // ondblClickRow: function(id){ showuserinfo(id);},	
-     caption: "行为"
+     caption: "良好行为"
       
    });
    jQuery("#behavior").jqGrid('navGrid','#behaviorPager',{edit:true,add:true,del:true,search:false,closeAfterAdd: true,
+closeAfterEdit:true});
+
+});
+//驾驶员不良行为列表
+		$(function()
+ {
+		 $("#badbehavior").jqGrid({
+     url:"<%=basePath%>driverinfo/badbehavior?id=<%=request.getParameter("id").toString()%>",
+     datatype: "json",
+     mtype:"POST",
+     
+     colNames:['ID','驾驶员','地点','时间','经过','结果'],
+     colModel:[
+    		// {name: 'modify', width:20, fixed:false, resize:false, formatter:'actions',formatoptions:{keys:true}},
+             {name:'id',index:'id', width:15, sorttype:"String",editable:false,search: false},
+             {name:'name',index:'name', width:20,sorttype:"String",editable:false},
+            // {name:'incident_date',index:'incident_date', width:20,editable:true},
+            {name:'incident_location',index:'incident_location', width:20,editable:true},
+             {name:'incident_date',index:'incident_date', width:30,editable:true,editoptions:{size:20, dataInit:function(e1){ $(e1).datepicker({
+      		           changeYear: true,
+            		   changeMonth: true});}}},
+             
+             
+             {name:'description',index:'description', width:20,editable:true},
+             {name:'result',index:'result', width:20,editable:true}
+			 ],
+     sortname:'id',
+     sortorder:'asc',
+     viewrecords:true,
+     rowNum:20,
+     width:1200,
+     //autowidth:true,
+     autoheight:true,
+     //height: 100,
+     rowList:[20,30,50],
+     editurl:"<%=basePath%>driverinfo/editbadbehavior?idcard=<%=request.getParameter("id").toString()%>",
+     jsonReader: {
+     root:"account",               // 数据行（默认为：rows）
+     page: "pageNo",          // 当前页
+     total: "pageCount",        // 总页数
+     records: "dataCount",      // 总记录数
+     repeatitems : false        // 设置成false，在后台设置值的时候，可以乱序。且并非每个值都得设
+     },
+    prmNames:{
+        rows:"pageSize",
+        page:"pageNo"
+         },	  
+     pager:"#badbehaviorPager",
+     // ondblClickRow: function(id){ showuserinfo(id);},	
+     caption: "不良行为"
+      
+   });
+   jQuery("#badbehavior").jqGrid('navGrid','#badbehaviorPager',{edit:true,add:true,del:true,search:false,closeAfterAdd: true,
 closeAfterEdit:true});
 
 });
@@ -429,6 +481,15 @@ closeAfterEdit:true});
   </head>
   
   <body>
+  
+  	 <div>
+  	<label>欢迎</label>
+  	<label><%=session.getAttribute("name").toString()%></label>
+  	<a href="<%=basePath%>">用户管理</a>
+  	<a href="<%=basePath%>user/logout"><label>注销</label></a>
+ 	</div>
+  
+  
     <table id="driverinfo"></table>
 	<div id="driverinfoPager"></div>
 	<!-- 交通事故 -->
@@ -440,9 +501,12 @@ closeAfterEdit:true});
 	<!-- 机械事故 -->
 	<table id="mechaccident"></table>
 	<div id="mechaccidentPager"></div>
-	<!-- 行为 -->
+	<!-- 良好行为 -->
     <table id="behavior"></table>
 	<div id="behaviorPager"></div>
+	<!-- 不良行为 -->
+    <table id="badbehavior"></table>
+	<div id="badbehaviorPager"></div>
 
 	<!-- 违规行为 -->
     <table id="discipline"></table>
