@@ -485,7 +485,7 @@ closeAfterEdit:true});
   	 <div>
   	<label>欢迎</label>
   	<label><%=session.getAttribute("name").toString()%></label>
-  	<a href="<%=basePath%>">用户管理</a>
+  	<a href="<%=basePath%>muser/showuser">用户管理</a>
   	<a href="<%=basePath%>user/logout"><label>注销</label></a>
  	</div>
   

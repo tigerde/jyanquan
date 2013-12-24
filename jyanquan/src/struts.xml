@@ -12,6 +12,26 @@
 		<result>/login.jsp</result>
 	</action>
 </package>
+<!-- 用户管理 -->
+<package name="muser" extends="json-default" namespace="/muser">
+
+	<action name="showuser" class="com.anquan.jy.action.UserAction" method="showUser">
+		<result>/users.jsp</result>
+	</action>
+
+	<!-- 获取司机交通事故列表 -->
+	<action name="user" class="com.anquan.jy.action.UserAction" method="getUser">
+		<result type="json">
+			<param name="root">json</param>
+		</result>
+	</action>
+	<!-- 维护司机交通事故列表 -->
+	<action name="edituser" class="com.anquan.jy.action.UserAction" method="editUser">
+		<result type="json">
+			<param name="root">json</param>
+		</result>
+	</action>
+</package>
 <package name="driver" extends="json-default" namespace="/driver">
 	<!-- 获取司机列表 -->
 	<action name="all" class="com.anquan.jy.action.DriversAction" method="getdrivers">

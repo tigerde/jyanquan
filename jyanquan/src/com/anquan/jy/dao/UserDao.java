@@ -24,112 +24,41 @@ public class UserDao {
 	 * @param id 驾驶员db中id
 	 * @return
 	 */
-	public static List<TrafficAccident> getTrafficAccidents(String starttime,String endtime,String sql){
-		List<TrafficAccident> list=new ArrayList<TrafficAccident>();
-		Connection conn=null;
-		PreparedStatement ps=null;
-		ResultSet rs=null;
-		
-		try {
-			conn=DBConn.getConnection();
-			ps=conn.prepareStatement("select b.name,b.company,a.* from traffic_accident a left join drivers b on a.idcard=b.id where  a.deleted=0 and b.deleted=0 and a.accident_date between ? and ? "+sql);
-			ps.setString(1, starttime);
-			ps.setString(2, endtime);
-			rs=ps.executeQuery();
-			while(rs.next()){
-				
-				TrafficAccident ta=new TrafficAccident();
-				ta.setId(rs.getString("id"));
-				ta.setIdcard(rs.getString("idcard"));
-				ta.setCompany(rs.getString("company"));
-				ta.setLine_number(rs.getString("line_number"));
-				ta.setBus_number(rs.getString("bus_number"));
-				ta.setName(rs.getString("name"));
-				ta.setAccident_date(rs.getString("accident_date"));
-				ta.setAccident_location(rs.getString("accident_location"));
-				ta.setAccident_summary(rs.getString("accident_summary"));
-				ta.setAccident_liability(rs.getString("accident_liability"));
-				ta.setResult(rs.getString("result"));
-				ta.setReporter(rs.getString("reporter"));
-				
-				try {
-					ta.setCreate_datetime(TimeFormatUtil.getTime(rs.getString("create_datetime")));
-				}catch (ParseException e) {
-					log.error("getTrafficAccidents时间格式化错误", e);
-				}catch (NullPointerException e){
-					log.error("getTrafficAccidents时间格式化错误", e);
-				}
-				
-				try {
-					ta.setModifi_datetime(TimeFormatUtil.getTime(rs.getString("modifi_datetime")));
-				}catch (ParseException e) {
-					log.error("getTrafficAccidents时间格式化错误", e);
-				}catch (NullPointerException e){
-					log.error("getTrafficAccidents时间格式化错误", e);
-				}
-				
-				ta.setCreate_user_id(rs.getString("create_user_id"));
-				ta.setModifi_user_id(rs.getString("modifi_user_id"));
-				list.add(ta);
-			}
-			
-		} catch (SQLException e) {
-			log.error("getTrafficAccidents获取驾驶员交通事故信息", e);
-		}finally{
-			DBConn.close(rs, ps, conn);
-		}
-		return list;
-	}
-	/**
-	 * 获取驾驶员交通事故信息列表
-	 * @param id 驾驶员db中id
-	 * @return
-	 */
-	public static List<TrafficAccident> getTrafficAccidents(String id,String sql){
-		List<TrafficAccident> list=new ArrayList<TrafficAccident>();
+	public static List<User> getUsers(String sql){
+		List<User> list=new ArrayList<User>();
 		Connection conn=null;
 		PreparedStatement ps=null;
 		ResultSet rs=null;
 
 		try {
 			conn=DBConn.getConnection();
-			ps=conn.prepareStatement("select * from traffic_accident where  deleted=0 and idcard=? "+sql);
-			ps.setString(1, id);
+			ps=conn.prepareStatement("select * from sys_user where  deleted=0  "+sql);
 			rs=ps.executeQuery();
 			while(rs.next()){
 				
-				TrafficAccident ta=new TrafficAccident();
+				User ta=new User();
 				ta.setId(rs.getString("id"));
-				ta.setIdcard(rs.getString("idcard"));
-				ta.setCompany(rs.getString("company"));
-				ta.setLine_number(rs.getString("line_number"));
-				ta.setBus_number(rs.getString("bus_number"));
-				ta.setName("");
-				ta.setAccident_date(rs.getString("accident_date"));
-				ta.setAccident_location(rs.getString("accident_location"));
-				ta.setAccident_summary(rs.getString("accident_summary"));
-				ta.setAccident_liability(rs.getString("accident_liability"));
-				ta.setResult(rs.getString("result"));
-				ta.setReporter(rs.getString("reporter"));
-				
-				try {
-					ta.setCreate_datetime(TimeFormatUtil.getTime(rs.getString("create_datetime")));
-				}catch (ParseException e) {
-					log.error("getTrafficAccidents时间格式化错误", e);
-				}catch (NullPointerException e){
-					log.error("getTrafficAccidents时间格式化错误", e);
-				}
-				
-				try {
-					ta.setModifi_datetime(TimeFormatUtil.getTime(rs.getString("modifi_datetime")));
-				}catch (ParseException e) {
-					log.error("getTrafficAccidents时间格式化错误", e);
-				}catch (NullPointerException e){
-					log.error("getTrafficAccidents时间格式化错误", e);
-				}
-				
-				ta.setCreate_user_id(rs.getString("create_user_id"));
-				ta.setModifi_user_id(rs.getString("modifi_user_id"));
+				ta.setName(rs.getString("name"));
+				ta.setUser_id(rs.getString("user_id"));
+				ta.setPassword(rs.getString("password"));
+			try {
+				ta.setCreate_datetime(TimeFormatUtil.getTime(rs.getString("create_datetime")));
+			}catch (ParseException e) {
+				log.error("getTrafficAccident时间格式化错误", e);
+			}catch (NullPointerException e){
+				log.error("getTrafficAccident时间格式化错误", e);
+			}
+			
+			try {
+				ta.setModifi_datetime(TimeFormatUtil.getTime(rs.getString("modifi_datetime")));
+			}catch (ParseException e) {
+				log.error("getTrafficAccident时间格式化错误", e);
+			}catch (NullPointerException e){
+				log.error("getTrafficAccident时间格式化错误", e);
+			}
+			
+			
+		
 				list.add(ta);
 			}
 			
@@ -145,32 +74,23 @@ public class UserDao {
 	 * @param id
 	 * @return
 	 */
-	public static TrafficAccident getTrafficAccident(String id){
-		TrafficAccident ta=null;
+	public static User getUser(String id){
+		User ta=null;
 		Connection conn=null;
 		PreparedStatement ps=null;
 		ResultSet rs=null;
 		
 		try {
 			conn=DBConn.getConnection();
-			ps=conn.prepareStatement("select * from traffic_accident where deleted=0 and id=?");
+			ps=conn.prepareStatement("select * from sys_user where deleted=0 and id=?");
 			ps.setString(1, id);
 			rs=ps.executeQuery();
 			if(rs.next()){
-				ta=new TrafficAccident();
-				ta.setId(rs.getString("id"));
-				ta.setIdcard(rs.getString("idcard"));
-				ta.setCompany(rs.getString("company"));
-				ta.setLine_number(rs.getString("line_number"));
-				ta.setBus_number(rs.getString("bus_number"));
-				ta.setName("");
-				ta.setAccident_date(rs.getString("accident_date"));
-				ta.setAccident_location(rs.getString("accident_location"));
-				ta.setAccident_summary(rs.getString("accident_summary"));
-				ta.setAccident_liability(rs.getString("accident_liability"));
-				ta.setResult(rs.getString("result"));
-				ta.setReporter(rs.getString("reporter"));
-				
+					ta=new User();
+					ta.setId(rs.getString("id"));
+					ta.setName(rs.getString("name"));
+					ta.setUser_id(rs.getString(""));
+					ta.setPassword(rs.getString("password"));
 				try {
 					ta.setCreate_datetime(TimeFormatUtil.getTime(rs.getString("create_datetime")));
 				}catch (ParseException e) {
@@ -187,8 +107,6 @@ public class UserDao {
 					log.error("getTrafficAccident时间格式化错误", e);
 				}
 				
-				ta.setCreate_user_id(rs.getString("create_user_id"));
-				ta.setModifi_user_id(rs.getString("modifi_user_id"));
 				
 			}
 			
@@ -241,7 +159,7 @@ public class UserDao {
 			ps.setString(2, u.getPassword());
 			ps.setString(3, u.getName());
 			ps.setString(4, u.getModifi_datetime());
-
+			ps.setString(5, u.getId());
 			i=ps.executeUpdate();
 		} catch (SQLException e) {
 			log.error("更新驾驶员交通事故信息", e);
@@ -285,7 +203,7 @@ public class UserDao {
 	 * @param id
 	 * @return
 	 */
-	public static int getUserCount(String id){
+	public static int getUserCount(){
 		int i=0;
 		Connection conn=null;
 		PreparedStatement ps=null;
@@ -293,8 +211,7 @@ public class UserDao {
 		
 		conn=DBConn.getConnection();
 		try {
-			ps=conn.prepareStatement("select count(*) count from sys_user deleted=0");
-			ps.setString(1, id);
+			ps=conn.prepareStatement("select count(*) count from sys_user where deleted=0");
 			rs=ps.executeQuery();
 			if(rs.next()){
 				i=rs.getInt("count");
@@ -309,7 +226,7 @@ public class UserDao {
 	}
 	 
 	public static void main(String[] args) {
-		System.out.println(getTrafficAccident("3").getAccident_date());
+		//System.out.println(getTrafficAccident("3").getAccident_date());
 		
 	}
 	

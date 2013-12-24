@@ -4,10 +4,13 @@ import net.sf.json.JSONObject;
 
 import com.anquan.jy.biz.DriverBiz;
 import com.anquan.jy.biz.DriverInfoBiz;
+import com.anquan.jy.biz.UserBiz;
 import com.anquan.jy.dao.TrafficAccidentDao;
 import com.anquan.jy.dao.TrafficViolationDao;
+import com.anquan.jy.dao.UserDao;
 import com.anquan.jy.entity.Driver;
 import com.anquan.jy.entity.TrafficAccident;
+import com.anquan.jy.entity.User;
 import com.anquan.jy.util.TimeFormatUtil;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -32,35 +35,41 @@ public class UserAction extends ActionSupport {
 	private String modifi_datetime;// 修改时间
 	private int deleted;// 是否删除：0正常，1删除
 
-	public String getDriverTrafficAccident() {
-		json = DriverInfoBiz.getTrafficAccidents(pageNo, pageSize, sidx, sord, id);
+	public String showUser() {
+		
+		return SUCCESS;
+	}
+	public String getUser() {
+		json = UserBiz.getUsers(pageNo, pageSize, sidx, sord);
 		return SUCCESS;
 	}
 
 	/**
 	 * 编辑驾驶员交通事故信息
 	 */
-	public void editTrafficAccident() {
+	public void editUser() {
 		if (oper.equals("del")) {
 			// 删除
-			TrafficAccidentDao.delTrafficAccident(id);
+			UserDao.delUser(id);
 
 		} else if (oper.equals("edit")) {
 			// 编辑
-			TrafficAccident ta = new TrafficAccident();
+			User ta = new User();
 			ta.setId(id);
-
+			ta.setUser_id(user_id);
+			ta.setName(name);
+			ta.setPassword(password);
 			ta.setModifi_datetime(TimeFormatUtil.getcurrentTime());
-			ta.setModifi_user_id("1");
-			TrafficAccidentDao.updateTrafficAccident(ta);
+			UserDao.updateUser(ta);
 		} else if (oper.equals("add")) {
-			TrafficAccident ta = new TrafficAccident();
-
+			User ta = new User();
+			ta.setId(id);
+			ta.setUser_id(user_id);
+			ta.setName(name);
+			ta.setPassword(password);
 			ta.setModifi_datetime(TimeFormatUtil.getcurrentTime());
-			ta.setModifi_user_id("1");
 			ta.setCreate_datetime(TimeFormatUtil.getcurrentTime());
-			ta.setCreate_user_id("1");
-			TrafficAccidentDao.insertTrafficAccident(ta);
+			UserDao.insertUser(ta);
 		}
 	}
 
