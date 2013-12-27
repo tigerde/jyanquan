@@ -3,6 +3,7 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+Map<String,String> map=(Map<String,String>)session.getAttribute("rolemap");
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
@@ -38,6 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript"
 			src="jifolder/jquery-ui/js/i18n/jquery.ui.datepicker-zh-CN.js"></script>
 	<script type="text/javascript">
+	
 	//个人信息
 	$(function()
  {
@@ -45,9 +47,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      url:"<%=basePath%>driver/driverinfo?id=<%=request.getParameter("id").toString()%>",
      datatype: "json",
      mtype:"POST",
-     colNames:['操作','ID','工号','姓名','驾驶证号','性别','生日','手机','家庭电话','线路','车牌号','准驾车型','取得A3或A1资格时间','所在分公司'],
+     colNames:['ID','工号','姓名','驾驶证号','性别','生日','手机','家庭电话','线路','车牌号','准驾车型','取得A3或A1资格时间','所在分公司'],
      colModel:[
-     		 {name: 'modify', width:30, fixed:false, resize:false, formatter:'actions',formatoptions:{keys:true}},
+     		// {name: 'modify', width:30, fixed:false, resize:false, formatter:'actions',formatoptions:{keys:true}},
              {name:'id',index:'id', width:35, sorttype:"String",editable:false},
              {name:'staffid',index:'staffid', width:30,editable:true},
              {name:'name',index:'name', width:30,editable:true,editrules:{required:true}},
@@ -87,15 +89,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         rows:"pageSize",
         page:"pageNo"
          },	  
-     pager:"#gridPager",
+     pager:"#driverinfoPager",
      // ondblClickRow: function(id){ alert("You double click row with id: "+id);},	
      caption: "驾驶员详细信息"
       
    });
-  // jQuery("#gridTable").jqGrid('navGrid','#gridPager',{edit:true,add:true,del:false,search:true});
+  jQuery("#driverinfo").jqGrid('navGrid','#driverinfoPager',{edit:<%="1".equals(map.get("driverinfo_edit"))%>,add:false,del:<%="1".equals(map.get("driverinfo_del"))%>,search:false,closeAfterAdd: true,
+closeAfterEdit:true});
 
 });
-
+<%if("1".equals(map.get("accident_show"))){%>
 			// 交通事故  traffic_accident
 		$(function()
  {
@@ -147,10 +150,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      caption: "交通事故"
       
    });
-   jQuery("#traffic_accident").jqGrid('navGrid','#traffic_accidentPager',{edit:true,add:true,del:true,search:false,closeAfterAdd: true,
+   jQuery("#traffic_accident").jqGrid('navGrid','#traffic_accidentPager',{add:<%="1".equals(map.get("accident_add"))%>,edit:<%="1".equals(map.get("accident_edit"))%>,del:<%="1".equals(map.get("accident_del"))%>,search:false,closeAfterAdd: true,
 closeAfterEdit:true});
 
 });
+<%}
+if("1".equals(map.get("violation_show"))){%>
 	//驾驶员交通违章信息列表
 		$(function()
  {
@@ -203,11 +208,12 @@ closeAfterEdit:true});
      caption: "交通违章"
       
    });
-   jQuery("#traffic_violation").jqGrid('navGrid','#traffic_violationPager',{edit:true,add:true,del:true,search:false,closeAfterAdd: true,
+   jQuery("#traffic_violation").jqGrid('navGrid','#traffic_violationPager',{add:<%="1".equals(map.get("violation_add"))%>,edit:<%="1".equals(map.get("violation_edit"))%>,del:<%="1".equals(map.get("violation_del"))%>,search:false,closeAfterAdd: true,
 closeAfterEdit:true});
 
 });
-
+<%}
+if("1".equals(map.get("behavior_show"))){%>
 //驾驶员良好行为列表
 		$(function()
  {
@@ -257,10 +263,14 @@ closeAfterEdit:true});
      caption: "良好行为"
       
    });
-   jQuery("#behavior").jqGrid('navGrid','#behaviorPager',{edit:true,add:true,del:true,search:false,closeAfterAdd: true,
+   jQuery("#behavior").jqGrid('navGrid','#behaviorPager',{add:<%="1".equals(map.get("behavior_add"))%>,edit:<%="1".equals(map.get("behavior_edit"))%>,del:<%="1".equals(map.get("behavior_del"))%>,search:false,closeAfterAdd: true,
 closeAfterEdit:true});
 
 });
+
+
+<%}
+if("1".equals(map.get("badbehavior_show"))){%>
 //驾驶员不良行为列表
 		$(function()
  {
@@ -310,11 +320,13 @@ closeAfterEdit:true});
      caption: "不良行为"
       
    });
-   jQuery("#badbehavior").jqGrid('navGrid','#badbehaviorPager',{edit:true,add:true,del:true,search:false,closeAfterAdd: true,
+   jQuery("#badbehavior").jqGrid('navGrid','#badbehaviorPager',{add:<%="1".equals(map.get("badbehavior_add"))%>,edit:<%="1".equals(map.get("badbehavior_edit"))%>,del:<%="1".equals(map.get("badbehavior_del"))%>,search:false,closeAfterAdd: true,
 closeAfterEdit:true});
 
 });
 
+<%}
+if("1".equals(map.get("discipline_show"))){%>
 //驾驶员违章列表
 		$(function()
  {
@@ -365,10 +377,13 @@ closeAfterEdit:true});
      caption: "驾驶员违章违纪"
       
    });
-   jQuery("#discipline").jqGrid('navGrid','#disciplinePager',{edit:true,add:true,del:true,search:false,closeAfterAdd: true,
+   jQuery("#discipline").jqGrid('navGrid','#disciplinePager',{add:<%="1".equals(map.get("discipline_add"))%>,edit:<%="1".equals(map.get("discipline_edit"))%>,del:<%="1".equals(map.get("discipline_del"))%>,search:false,closeAfterAdd: true,
 closeAfterEdit:true});
 
 });
+
+<%}
+if("1".equals(map.get("distance_show"))){%>
 //驾驶员安全里程
 		$(function()
  {
@@ -416,11 +431,13 @@ closeAfterEdit:true});
      caption: "驾驶员安全里程"
       
    });
-   jQuery("#safetydistance").jqGrid('navGrid','#safetydistancePager',{edit:true,add:true,del:true,search:false,closeAfterAdd: true,
+   jQuery("#safetydistance").jqGrid('navGrid','#safetydistancePager',{add:<%="1".equals(map.get("distance_add"))%>,edit:<%="1".equals(map.get("distance_edit"))%>,del:<%="1".equals(map.get("distance_del"))%>,search:false,closeAfterAdd: true,
 closeAfterEdit:true});
 
 });
 
+<%}
+if("1".equals(map.get("mechanical_show"))){%>
 // 机械事故  traffic_accident
 		$(function()
  {
@@ -472,10 +489,11 @@ closeAfterEdit:true});
      caption: "机械事故"
       
    });
-   jQuery("#mechaccident").jqGrid('navGrid','#mechaccidentPager',{edit:true,add:true,del:true,search:false,closeAfterAdd: true,
+   jQuery("#mechaccident").jqGrid('navGrid','#mechaccidentPager',{add:<%="1".equals(map.get("mechanical_add"))%>,edit:<%="1".equals(map.get("mechanical_edit"))%>,del:<%="1".equals(map.get("mechanical_del"))%>,search:false,closeAfterAdd: true,
 closeAfterEdit:true});
 
 });
+<%}%>
 	</script>
 	
   </head>
@@ -485,7 +503,9 @@ closeAfterEdit:true});
   	 <div>
   	<label>欢迎</label>
   	<label><%=session.getAttribute("name").toString()%></label>
+  	<%if("1".equals(map.get("muser_show"))){ %>
   	<a href="<%=basePath%>muser/showuser">用户管理</a>
+  	<%} %>
   	<a href="<%=basePath%>user/logout"><label>注销</label></a>
  	</div>
   

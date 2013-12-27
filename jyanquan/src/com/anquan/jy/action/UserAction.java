@@ -12,6 +12,7 @@ import com.anquan.jy.entity.Driver;
 import com.anquan.jy.entity.TrafficAccident;
 import com.anquan.jy.entity.User;
 import com.anquan.jy.util.TimeFormatUtil;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class UserAction extends ActionSupport {
@@ -48,6 +49,8 @@ public class UserAction extends ActionSupport {
 	 * 编辑驾驶员交通事故信息
 	 */
 	public void editUser() {
+		ActionContext.getContext().getSession().get("userid");
+		//put("userid", user.getUser_id());
 		if (oper.equals("del")) {
 			// 删除
 			UserDao.delUser(id);

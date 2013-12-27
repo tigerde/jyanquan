@@ -58,6 +58,7 @@ public class BadBehaviorAction extends ActionSupport {
 	 * 编辑驾驶员交通事故信息
 	 */
 	public void editBehavior(){
+		
 		if (oper.equals("del")){
 			//删除
 			BadBehaviorDao.delBehavior(id);

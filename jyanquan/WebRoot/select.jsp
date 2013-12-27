@@ -4,6 +4,8 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 String type=request.getParameter("type").toString();
+Map<String,String> map=(Map<String,String>)session.getAttribute("rolemap");
+
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
@@ -94,7 +96,7 @@ String type=request.getParameter("type").toString();
 		     caption: "事故查询"
 		      
 		   });
-		   jQuery("#selectTable").jqGrid('navGrid','#selectPager',{edit:false,add:false,del:false,search:false,closeAfterAdd: true,closeAfterEdit:true});
+		   jQuery("#selectTable").jqGrid('navGrid','#selectPager',{edit:<%="1".equals(map.get("select_edit"))%>,add:false,del:<%="1".equals(map.get("select_edit"))%>,search:false,closeAfterAdd: true,closeAfterEdit:true});
 		});
 		
 		**/
@@ -157,8 +159,7 @@ String type=request.getParameter("type").toString();
      caption: "交通事故"
       
    });
-   jQuery("#select").jqGrid('navGrid','#selectPager',{edit:true,add:true,del:true,search:false,closeAfterAdd: true,
-closeAfterEdit:true});
+   jQuery("#select").jqGrid('navGrid','#selectPager',{edit:<%="1".equals(map.get("select_edit"))%>,add:false,del:<%="1".equals(map.get("select_edit"))%>,search:false,closeAfterAdd: true,closeAfterEdit:true});
 
 });
 	<%
@@ -221,8 +222,7 @@ closeAfterEdit:true});
      caption: "交通违章"
       
    });
-   jQuery("#select").jqGrid('navGrid','#selectPager',{edit:true,add:true,del:true,search:false,closeAfterAdd: true,
-closeAfterEdit:true});
+   jQuery("#select").jqGrid('navGrid','#selectPager',{edit:<%="1".equals(map.get("select_edit"))%>,add:false,del:<%="1".equals(map.get("select_edit"))%>,search:false,closeAfterAdd: true,closeAfterEdit:true});
 
 });
 
@@ -283,8 +283,7 @@ closeAfterEdit:true});
      caption: "行为"
       
    });
-   jQuery("#select").jqGrid('navGrid','#selectPager',{edit:true,add:true,del:true,search:false,closeAfterAdd: true,
-closeAfterEdit:true});
+    jQuery("#select").jqGrid('navGrid','#selectPager',{edit:<%="1".equals(map.get("select_edit"))%>,add:false,del:<%="1".equals(map.get("select_edit"))%>,search:false,closeAfterAdd: true,closeAfterEdit:true});
 
 });
 
@@ -345,8 +344,7 @@ closeAfterEdit:true});
      caption: "不良行为"
       
    });
-   jQuery("#select").jqGrid('navGrid','#selectPager',{edit:true,add:true,del:true,search:false,closeAfterAdd: true,
-closeAfterEdit:true});
+   jQuery("#select").jqGrid('navGrid','#selectPager',{edit:<%="1".equals(map.get("select_edit"))%>,add:false,del:<%="1".equals(map.get("select_edit"))%>,search:false,closeAfterAdd: true,closeAfterEdit:true});
 
 });
 
@@ -408,8 +406,7 @@ closeAfterEdit:true});
      caption: "驾驶员违章违纪"
       
    });
-   jQuery("#select").jqGrid('navGrid','#selectPager',{edit:true,add:true,del:true,search:false,closeAfterAdd: true,
-closeAfterEdit:true});
+    jQuery("#select").jqGrid('navGrid','#selectPager',{edit:<%="1".equals(map.get("select_edit"))%>,add:false,del:<%="1".equals(map.get("select_edit"))%>,search:false,closeAfterAdd: true,closeAfterEdit:true});
 
 });
 
@@ -472,8 +469,7 @@ closeAfterEdit:true});
      caption: "机械事故"
       
    });
-   jQuery("#select").jqGrid('navGrid','#selectPager',{edit:true,add:true,del:true,search:false,closeAfterAdd: true,
-closeAfterEdit:true});
+   jQuery("#select").jqGrid('navGrid','#selectPager',{edit:<%="1".equals(map.get("select_edit"))%>,add:false,del:<%="1".equals(map.get("select_edit"))%>,search:false,closeAfterAdd: true,closeAfterEdit:true});
 
 });
 	<%}%>	

@@ -3,6 +3,8 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+Map<String,String> map=(Map<String,String>)session.getAttribute("rolemap");
+
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
@@ -82,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		      
 		   });
 		   jQuery("#gridTable").jqGrid('filterToolbar',{searchOperators : true});
-		   jQuery("#gridTable").jqGrid('navGrid','#gridPager',{edit:true,add:true,del:true,search:false});
+		   jQuery("#gridTable").jqGrid('navGrid','#gridPager',{edit:<%="1".equals(map.get("driver_edit"))%>,add:<%="1".equals(map.get("driver_add"))%>,del:<%="1".equals(map.get("driver_del"))%>,search:false});
 		
 		});
 		 
@@ -147,11 +149,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <div>
   	<label>欢迎</label>
   	<label><%=session.getAttribute("name").toString()%></label>
+  	<%if("1".equals(map.get("muser_show"))){ %>
   	<a href="<%=basePath%>muser/showuser">用户管理</a>
+  	<%} %>
   	<a href="<%=basePath%>user/logout"><label>注销</label></a>
   </div>
     <table id="gridTable"></table>
 	<div id="gridPager"></div>
+	<%if("1".equals(map.get("select_show"))){ %>
 	<div>
 		<label>查询类型</label>
 		<!-- 查询类型 -->
@@ -177,7 +182,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<iframe id="selectframe" src="" frameBorder=0 scrolling=no width="100%" height="500">
 	
 	</iframe>
-
+	<%} %>
 
   </body>
 </html>
