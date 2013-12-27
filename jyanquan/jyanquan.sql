@@ -3,7 +3,7 @@
 # Server version:               5.5.16
 # Server OS:                    Win32
 # HeidiSQL version:             6.0.0.3603
-# Date/time:                    2013-12-14 21:46:38
+# Date/time:                    2013-12-27 21:09:03
 # --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -12,8 +12,35 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 # Dumping database structure for jysecurity
+DROP DATABASE IF EXISTS `jysecurity`;
 CREATE DATABASE IF NOT EXISTS `jysecurity` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `jysecurity`;
+
+
+# Dumping structure for table jysecurity.badbehavior
+DROP TABLE IF EXISTS `badbehavior`;
+CREATE TABLE IF NOT EXISTS `badbehavior` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idcard` varchar(20) DEFAULT NULL COMMENT '身份证',
+  `name` varchar(20) DEFAULT NULL COMMENT '姓名',
+  `incident_date` date DEFAULT NULL COMMENT '时间',
+  `incident_location` varchar(255) DEFAULT NULL COMMENT '地点',
+  `description` varchar(500) DEFAULT NULL COMMENT '经过',
+  `result` varchar(500) DEFAULT NULL COMMENT '结果',
+  `create_datetime` datetime DEFAULT NULL,
+  `modifi_datetime` datetime DEFAULT NULL,
+  `create_user_id` varchar(20) DEFAULT NULL,
+  `modifi_user_id` varchar(20) DEFAULT NULL,
+  `deleted` int(2) DEFAULT '0' COMMENT '是否删除：1删除，0未删除',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+# Dumping data for table jysecurity.badbehavior: ~1 rows (approximately)
+DELETE FROM `badbehavior`;
+/*!40000 ALTER TABLE `badbehavior` DISABLE KEYS */;
+INSERT INTO `badbehavior` (`id`, `idcard`, `name`, `incident_date`, `incident_location`, `description`, `result`, `create_datetime`, `modifi_datetime`, `create_user_id`, `modifi_user_id`, `deleted`) VALUES
+	(3, '1', NULL, '2013-12-12', '122', '21', '12', '2013-12-22 13:59:34', '2013-12-22 13:59:42', '1', '1', 0);
+/*!40000 ALTER TABLE `badbehavior` ENABLE KEYS */;
 
 
 # Dumping structure for table jysecurity.behavior
@@ -26,20 +53,20 @@ CREATE TABLE IF NOT EXISTS `behavior` (
   `incident_location` varchar(255) DEFAULT NULL COMMENT '地点',
   `description` varchar(500) DEFAULT NULL COMMENT '经过',
   `result` varchar(500) DEFAULT NULL COMMENT '结果',
-  `type` int(2) DEFAULT NULL COMMENT '行为类型：1良好行为，2不良行为',
   `create_datetime` datetime DEFAULT NULL,
   `modifi_datetime` datetime DEFAULT NULL,
   `create_user_id` varchar(20) DEFAULT NULL,
   `modifi_user_id` varchar(20) DEFAULT NULL,
   `deleted` int(2) DEFAULT '0' COMMENT '是否删除：1删除，0未删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
-# Dumping data for table jysecurity.behavior: ~1 rows (approximately)
+# Dumping data for table jysecurity.behavior: ~2 rows (approximately)
 DELETE FROM `behavior`;
 /*!40000 ALTER TABLE `behavior` DISABLE KEYS */;
-INSERT INTO `behavior` (`id`, `idcard`, `name`, `incident_date`, `incident_location`, `description`, `result`, `type`, `create_datetime`, `modifi_datetime`, `create_user_id`, `modifi_user_id`, `deleted`) VALUES
-	(1, '2', NULL, '2013-12-04', '21', '21', '21', 1, '2013-12-12 21:50:59', '2013-12-12 21:50:59', '1', '1', 0);
+INSERT INTO `behavior` (`id`, `idcard`, `name`, `incident_date`, `incident_location`, `description`, `result`, `create_datetime`, `modifi_datetime`, `create_user_id`, `modifi_user_id`, `deleted`) VALUES
+	(1, '2', NULL, '2013-12-04', '21', '21', '21', '2013-12-12 21:50:59', '2013-12-12 21:50:59', '1', '1', 0),
+	(2, '1', NULL, '2013-12-11', '1', '1', '1', '2013-12-21 01:40:19', '2013-12-21 01:40:19', '1', '1', 0);
 /*!40000 ALTER TABLE `behavior` ENABLE KEYS */;
 
 
@@ -52,21 +79,22 @@ CREATE TABLE IF NOT EXISTS `discipline` (
   `discipline_date` date DEFAULT NULL COMMENT '违章违纪时间',
   `description` varchar(500) DEFAULT NULL COMMENT '事由',
   `gist` varchar(500) DEFAULT NULL COMMENT '处罚依据',
-  `fine` double(10,2) DEFAULT NULL COMMENT '罚款单号',
-  `fine_number` varchar(20) DEFAULT NULL,
+  `fine` varchar(50) DEFAULT NULL COMMENT '罚款单号',
+  `fine_number` varchar(50) DEFAULT NULL,
   `create_datetime` datetime DEFAULT NULL,
   `modifi_datetime` datetime DEFAULT NULL,
   `create_user_id` varchar(20) DEFAULT NULL,
   `modifi_user_id` varchar(20) DEFAULT NULL,
   `deleted` int(2) DEFAULT '0' COMMENT '是否删除：1删除，0未删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
-# Dumping data for table jysecurity.discipline: ~1 rows (approximately)
+# Dumping data for table jysecurity.discipline: ~2 rows (approximately)
 DELETE FROM `discipline`;
 /*!40000 ALTER TABLE `discipline` DISABLE KEYS */;
 INSERT INTO `discipline` (`id`, `idcard`, `position`, `discipline_date`, `description`, `gist`, `fine`, `fine_number`, `create_datetime`, `modifi_datetime`, `create_user_id`, `modifi_user_id`, `deleted`) VALUES
-	(1, '2', '231', '2013-12-12', '2313213', '213321321', 13232132.00, NULL, '2013-12-12 21:51:17', '2013-12-12 21:51:17', '1', '1', 0);
+	(1, '2', '231', '2013-12-12', '2313213', '213321321', '13232132.00', NULL, '2013-12-12 21:51:17', '2013-12-12 21:51:17', '1', '1', 0),
+	(2, '1', '1', '2013-12-11', '1', '1', '1.00', NULL, '2013-12-21 01:40:06', '2013-12-21 01:40:06', '1', '1', 0);
 /*!40000 ALTER TABLE `discipline` ENABLE KEYS */;
 
 
@@ -81,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `drivers` (
   `birth` varchar(25) DEFAULT NULL COMMENT '生日',
   `driver_id` varchar(30) DEFAULT NULL COMMENT '驾驶证号',
   `mobile_phone` varchar(20) NOT NULL COMMENT '手机',
-  `home_phone` varchar(20) NOT NULL COMMENT '家庭电话',
+  `home_phone` varchar(200) NOT NULL COMMENT '家庭住址',
   `line_number` varchar(20) NOT NULL COMMENT '线路',
   `bus_number` varchar(20) DEFAULT NULL COMMENT '车牌号',
   `driving_type` varchar(255) DEFAULT NULL COMMENT '准驾车型',
@@ -102,7 +130,7 @@ INSERT INTO `drivers` (`id`, `staffid`, `name`, `idcard`, `sex`, `birth`, `drive
 	(1, '', '徐涛', '37020219870628541X', '男', '', '123', '13668866295', '', '623', '', '', '', '公司本部', '2013-10-26 17:23:30', '2013-10-27 18:13:07', NULL, '', 0),
 	(2, '', '张立刚', '370202198612345678', '男', '', '456', '123456789010', '', '623', '', '', '', '公司本部', '2013-10-26 17:23:33', '2013-10-27 18:14:37', NULL, '', 0),
 	(3, '', '史秀群', '370201198212345678', '女', '1982-08-19', '1234', '1357951598451', '', '632', '', '', '2002-10-10', '兴达分公司', '2013-10-26 17:23:35', '2013-10-27 22:30:07', NULL, '', 0),
-	(4, '', '周琦', '370201567801654640', '女', '', '12345', '16154981516', '', '609', '', '', '', '公司本部', '2013-10-26 17:23:36', '2013-10-27 18:15:47', NULL, '', 0),
+	(4, '', '周琦', '370201567801654640', '女', '', '12345', '16154981516', '', '609', '', '', '', '公司本部', '2013-10-26 17:23:36', '2013-12-22 21:36:49', NULL, '', 0),
 	(5, '', '5', '123456', '', NULL, '123456', '', '', '', NULL, NULL, '2013-10-26', '', '2013-10-26 17:23:38', '2013-10-26 17:23:51', NULL, NULL, 0),
 	(6, '', '6', '1234567', '', NULL, '1234567', '', '', '', NULL, NULL, '2013-10-26', '', '2013-10-26 17:23:40', '2013-10-26 17:23:53', NULL, NULL, 0),
 	(7, '1001', '7', '333333333', '', '2013-10-10', '', '123123123', '', '110', 'b0102', 'A1', '2013-10-16', '温馨巴士', '2013-10-27 18:11:11', '2013-10-28 09:52:16', NULL, '', 0),
@@ -150,9 +178,9 @@ CREATE TABLE IF NOT EXISTS `mechanical_accident` (
   `modifi_user_id` varchar(20) DEFAULT NULL,
   `deleted` int(2) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
-# Dumping data for table jysecurity.mechanical_accident: ~0 rows (approximately)
+# Dumping data for table jysecurity.mechanical_accident: ~3 rows (approximately)
 DELETE FROM `mechanical_accident`;
 /*!40000 ALTER TABLE `mechanical_accident` DISABLE KEYS */;
 INSERT INTO `mechanical_accident` (`id`, `idcard`, `company`, `line_number`, `bus_number`, `name`, `accident_date`, `accident_location`, `accident_summary`, `accident_liability`, `result`, `reporter`, `create_datetime`, `modifi_datetime`, `create_user_id`, `modifi_user_id`, `deleted`) VALUES
@@ -196,6 +224,154 @@ INSERT INTO `safety_distance` (`id`, `idcard`, `bus_number`, `year`, `month`, `m
 /*!40000 ALTER TABLE `safety_distance` ENABLE KEYS */;
 
 
+# Dumping structure for table jysecurity.sys_role
+DROP TABLE IF EXISTS `sys_role`;
+CREATE TABLE IF NOT EXISTS `sys_role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(20) DEFAULT NULL COMMENT '用户dbid',
+  `role_name` varchar(30) DEFAULT NULL COMMENT '权限名称',
+  `role_value` tinyint(2) DEFAULT NULL COMMENT '权限值1,0有效无效',
+  `create_datetime` datetime DEFAULT NULL,
+  `create_user_id` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1089 DEFAULT CHARSET=utf8;
+
+# Dumping data for table jysecurity.sys_role: ~129 rows (approximately)
+DELETE FROM `sys_role`;
+/*!40000 ALTER TABLE `sys_role` DISABLE KEYS */;
+INSERT INTO `sys_role` (`id`, `user_id`, `role_name`, `role_value`, `create_datetime`, `create_user_id`) VALUES
+	(917, '1', 'driver_show', 1, '2013-12-27 00:00:00', ''),
+	(918, '1', 'driver_add', 1, '2013-12-27 00:00:00', ''),
+	(919, '1', 'driver_edit', 1, '2013-12-27 00:00:00', ''),
+	(920, '1', 'driver_del', 1, '2013-12-27 00:00:00', ''),
+	(921, '1', 'select_show', 1, '2013-12-27 00:00:00', ''),
+	(922, '1', 'select_add', 1, '2013-12-27 00:00:00', ''),
+	(923, '1', 'select_edit', 1, '2013-12-27 00:00:00', ''),
+	(924, '1', 'select_del', 1, '2013-12-27 00:00:00', ''),
+	(925, '1', 'muser_show', 1, '2013-12-27 00:00:00', ''),
+	(926, '1', 'muser_add', 1, '2013-12-27 00:00:00', ''),
+	(927, '1', 'muser_edit', 1, '2013-12-27 00:00:00', ''),
+	(928, '1', 'muser_del', 1, '2013-12-27 00:00:00', ''),
+	(929, '1', 'muser_pw', 1, '2013-12-27 00:00:00', ''),
+	(930, '1', 'driverinfo_edit', 1, '2013-12-27 00:00:00', ''),
+	(931, '1', 'driverinfo_del', 1, '2013-12-27 00:00:00', ''),
+	(932, '1', 'accident_show', 1, '2013-12-27 00:00:00', ''),
+	(933, '1', 'accident_add', 1, '2013-12-27 00:00:00', ''),
+	(934, '1', 'accident_edit', 1, '2013-12-27 00:00:00', ''),
+	(935, '1', 'accident_del', 1, '2013-12-27 00:00:00', ''),
+	(936, '1', 'violation_show', 1, '2013-12-27 00:00:00', ''),
+	(937, '1', 'violation_add', 1, '2013-12-27 00:00:00', ''),
+	(938, '1', 'violation_edit', 1, '2013-12-27 00:00:00', ''),
+	(939, '1', 'violation_del', 1, '2013-12-27 00:00:00', ''),
+	(940, '1', 'mechanical_show', 1, '2013-12-27 00:00:00', ''),
+	(941, '1', 'mechanical_add', 1, '2013-12-27 00:00:00', ''),
+	(942, '1', 'mechanical_edit', 1, '2013-12-27 00:00:00', ''),
+	(943, '1', 'mechanical_del', 1, '2013-12-27 00:00:00', ''),
+	(944, '1', 'behavior_show', 1, '2013-12-27 00:00:00', ''),
+	(945, '1', 'behavior_add', 1, '2013-12-27 00:00:00', ''),
+	(946, '1', 'behavior_edit', 1, '2013-12-27 00:00:00', ''),
+	(947, '1', 'behavior_del', 1, '2013-12-27 00:00:00', ''),
+	(948, '1', 'badbehavior_show', 1, '2013-12-27 00:00:00', ''),
+	(949, '1', 'badbehavior_add', 1, '2013-12-27 00:00:00', ''),
+	(950, '1', 'badbehavior_edit', 1, '2013-12-27 00:00:00', ''),
+	(951, '1', 'badbehavior_del', 1, '2013-12-27 00:00:00', ''),
+	(952, '1', 'discipline_show', 1, '2013-12-27 00:00:00', ''),
+	(953, '1', 'discipline_add', 1, '2013-12-27 00:00:00', ''),
+	(954, '1', 'discipline_edit', 1, '2013-12-27 00:00:00', ''),
+	(955, '1', 'discipline_del', 1, '2013-12-27 00:00:00', ''),
+	(956, '1', 'distance_show', 1, '2013-12-27 00:00:00', ''),
+	(957, '1', 'distance_add', 1, '2013-12-27 00:00:00', ''),
+	(958, '1', 'distance_edit', 1, '2013-12-27 00:00:00', ''),
+	(959, '1', 'distance_del', 1, '2013-12-27 00:00:00', ''),
+	(1003, '2', 'driver_show', 1, '2013-12-27 00:00:00', ''),
+	(1004, '2', 'driver_add', 1, '2013-12-27 00:00:00', ''),
+	(1005, '2', 'driver_edit', 0, '2013-12-27 00:00:00', ''),
+	(1006, '2', 'driver_del', 0, '2013-12-27 00:00:00', ''),
+	(1007, '2', 'select_show', 1, '2013-12-27 00:00:00', ''),
+	(1008, '2', 'select_add', 0, '2013-12-27 00:00:00', ''),
+	(1009, '2', 'select_edit', 0, '2013-12-27 00:00:00', ''),
+	(1010, '2', 'select_del', 0, '2013-12-27 00:00:00', ''),
+	(1011, '2', 'muser_show', 0, '2013-12-27 00:00:00', ''),
+	(1012, '2', 'muser_add', 0, '2013-12-27 00:00:00', ''),
+	(1013, '2', 'muser_edit', 0, '2013-12-27 00:00:00', ''),
+	(1014, '2', 'muser_del', 0, '2013-12-27 00:00:00', ''),
+	(1015, '2', 'muser_pw', 0, '2013-12-27 00:00:00', ''),
+	(1016, '2', 'driverinfo_edit', 0, '2013-12-27 00:00:00', ''),
+	(1017, '2', 'driverinfo_del', 0, '2013-12-27 00:00:00', ''),
+	(1018, '2', 'accident_show', 0, '2013-12-27 00:00:00', ''),
+	(1019, '2', 'accident_add', 0, '2013-12-27 00:00:00', ''),
+	(1020, '2', 'accident_edit', 0, '2013-12-27 00:00:00', ''),
+	(1021, '2', 'accident_del', 0, '2013-12-27 00:00:00', ''),
+	(1022, '2', 'violation_show', 0, '2013-12-27 00:00:00', ''),
+	(1023, '2', 'violation_add', 0, '2013-12-27 00:00:00', ''),
+	(1024, '2', 'violation_edit', 0, '2013-12-27 00:00:00', ''),
+	(1025, '2', 'violation_del', 0, '2013-12-27 00:00:00', ''),
+	(1026, '2', 'mechanical_show', 0, '2013-12-27 00:00:00', ''),
+	(1027, '2', 'mechanical_add', 0, '2013-12-27 00:00:00', ''),
+	(1028, '2', 'mechanical_edit', 0, '2013-12-27 00:00:00', ''),
+	(1029, '2', 'mechanical_del', 0, '2013-12-27 00:00:00', ''),
+	(1030, '2', 'behavior_show', 0, '2013-12-27 00:00:00', ''),
+	(1031, '2', 'behavior_add', 0, '2013-12-27 00:00:00', ''),
+	(1032, '2', 'behavior_edit', 0, '2013-12-27 00:00:00', ''),
+	(1033, '2', 'behavior_del', 0, '2013-12-27 00:00:00', ''),
+	(1034, '2', 'badbehavior_show', 0, '2013-12-27 00:00:00', ''),
+	(1035, '2', 'badbehavior_add', 0, '2013-12-27 00:00:00', ''),
+	(1036, '2', 'badbehavior_edit', 0, '2013-12-27 00:00:00', ''),
+	(1037, '2', 'badbehavior_del', 0, '2013-12-27 00:00:00', ''),
+	(1038, '2', 'discipline_show', 0, '2013-12-27 00:00:00', ''),
+	(1039, '2', 'discipline_add', 0, '2013-12-27 00:00:00', ''),
+	(1040, '2', 'discipline_edit', 0, '2013-12-27 00:00:00', ''),
+	(1041, '2', 'discipline_del', 0, '2013-12-27 00:00:00', ''),
+	(1042, '2', 'distance_show', 0, '2013-12-27 00:00:00', ''),
+	(1043, '2', 'distance_add', 0, '2013-12-27 00:00:00', ''),
+	(1044, '2', 'distance_edit', 0, '2013-12-27 00:00:00', ''),
+	(1045, '2', 'distance_del', 0, '2013-12-27 00:00:00', ''),
+	(1046, '3', 'driver_show', 1, '2013-12-27 00:00:00', ''),
+	(1047, '3', 'driver_add', 1, '2013-12-27 00:00:00', ''),
+	(1048, '3', 'driver_edit', 1, '2013-12-27 00:00:00', ''),
+	(1049, '3', 'driver_del', 0, '2013-12-27 00:00:00', ''),
+	(1050, '3', 'select_show', 1, '2013-12-27 00:00:00', ''),
+	(1051, '3', 'select_add', 0, '2013-12-27 00:00:00', ''),
+	(1052, '3', 'select_edit', 0, '2013-12-27 00:00:00', ''),
+	(1053, '3', 'select_del', 0, '2013-12-27 00:00:00', ''),
+	(1054, '3', 'muser_show', 0, '2013-12-27 00:00:00', ''),
+	(1055, '3', 'muser_add', 0, '2013-12-27 00:00:00', ''),
+	(1056, '3', 'muser_edit', 0, '2013-12-27 00:00:00', ''),
+	(1057, '3', 'muser_del', 0, '2013-12-27 00:00:00', ''),
+	(1058, '3', 'muser_pw', 0, '2013-12-27 00:00:00', ''),
+	(1059, '3', 'driverinfo_edit', 1, '2013-12-27 00:00:00', ''),
+	(1060, '3', 'driverinfo_del', 1, '2013-12-27 00:00:00', ''),
+	(1061, '3', 'accident_show', 0, '2013-12-27 00:00:00', ''),
+	(1062, '3', 'accident_add', 1, '2013-12-27 00:00:00', ''),
+	(1063, '3', 'accident_edit', 0, '2013-12-27 00:00:00', ''),
+	(1064, '3', 'accident_del', 1, '2013-12-27 00:00:00', ''),
+	(1065, '3', 'violation_show', 0, '2013-12-27 00:00:00', ''),
+	(1066, '3', 'violation_add', 1, '2013-12-27 00:00:00', ''),
+	(1067, '3', 'violation_edit', 0, '2013-12-27 00:00:00', ''),
+	(1068, '3', 'violation_del', 1, '2013-12-27 00:00:00', ''),
+	(1069, '3', 'mechanical_show', 1, '2013-12-27 00:00:00', ''),
+	(1070, '3', 'mechanical_add', 1, '2013-12-27 00:00:00', ''),
+	(1071, '3', 'mechanical_edit', 0, '2013-12-27 00:00:00', ''),
+	(1072, '3', 'mechanical_del', 1, '2013-12-27 00:00:00', ''),
+	(1073, '3', 'behavior_show', 1, '2013-12-27 00:00:00', ''),
+	(1074, '3', 'behavior_add', 1, '2013-12-27 00:00:00', ''),
+	(1075, '3', 'behavior_edit', 1, '2013-12-27 00:00:00', ''),
+	(1076, '3', 'behavior_del', 0, '2013-12-27 00:00:00', ''),
+	(1077, '3', 'badbehavior_show', 1, '2013-12-27 00:00:00', ''),
+	(1078, '3', 'badbehavior_add', 1, '2013-12-27 00:00:00', ''),
+	(1079, '3', 'badbehavior_edit', 1, '2013-12-27 00:00:00', ''),
+	(1080, '3', 'badbehavior_del', 0, '2013-12-27 00:00:00', ''),
+	(1081, '3', 'discipline_show', 1, '2013-12-27 00:00:00', ''),
+	(1082, '3', 'discipline_add', 0, '2013-12-27 00:00:00', ''),
+	(1083, '3', 'discipline_edit', 0, '2013-12-27 00:00:00', ''),
+	(1084, '3', 'discipline_del', 0, '2013-12-27 00:00:00', ''),
+	(1085, '3', 'distance_show', 1, '2013-12-27 00:00:00', ''),
+	(1086, '3', 'distance_add', 0, '2013-12-27 00:00:00', ''),
+	(1087, '3', 'distance_edit', 0, '2013-12-27 00:00:00', ''),
+	(1088, '3', 'distance_del', 0, '2013-12-27 00:00:00', '');
+/*!40000 ALTER TABLE `sys_role` ENABLE KEYS */;
+
+
 # Dumping structure for table jysecurity.sys_user
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE IF NOT EXISTS `sys_user` (
@@ -207,13 +383,15 @@ CREATE TABLE IF NOT EXISTS `sys_user` (
   `modifi_datetime` datetime DEFAULT NULL,
   `deleted` int(2) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
-# Dumping data for table jysecurity.sys_user: ~1 rows (approximately)
+# Dumping data for table jysecurity.sys_user: ~3 rows (approximately)
 DELETE FROM `sys_user`;
 /*!40000 ALTER TABLE `sys_user` DISABLE KEYS */;
 INSERT INTO `sys_user` (`id`, `user_id`, `password`, `name`, `create_datetime`, `modifi_datetime`, `deleted`) VALUES
-	(1, 'admin', 'admin', '徐涛', '2013-10-26 14:20:59', '2013-10-26 14:21:09', 0);
+	(1, 'admin', 'admin', '徐涛', '2013-10-26 14:20:59', '2013-12-23 22:32:37', 0),
+	(2, 'xutao', 'xutao', '徐涛', '2013-12-23 22:33:59', '2013-12-23 22:33:59', 0),
+	(3, 'ztj', 'ztj', '赵廷建', '2013-12-23 22:34:54', '2013-12-23 22:34:54', 0);
 /*!40000 ALTER TABLE `sys_user` ENABLE KEYS */;
 
 
@@ -240,14 +418,14 @@ CREATE TABLE IF NOT EXISTS `traffic_accident` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
-# Dumping data for table jysecurity.traffic_accident: ~6 rows (approximately)
+# Dumping data for table jysecurity.traffic_accident: ~8 rows (approximately)
 DELETE FROM `traffic_accident`;
 /*!40000 ALTER TABLE `traffic_accident` DISABLE KEYS */;
 INSERT INTO `traffic_accident` (`id`, `idcard`, `company`, `line_number`, `bus_number`, `name`, `accident_date`, `accident_location`, `accident_summary`, `accident_liability`, `result`, `reporter`, `create_datetime`, `modifi_datetime`, `create_user_id`, `modifi_user_id`, `deleted`) VALUES
 	(1, '1', '1', '1', '1', '1', '2013-10-28', '1', '1', '11', '1', '1', '2013-10-28 11:26:47', '2013-10-28 11:26:49', '1', '1', 0),
 	(2, '2', '2', '2', '2', '2', '2013-10-28', '2', '2', '2', '2', '3', '2013-10-28 11:28:19', '2013-10-28 11:28:20', '1', '1', 0),
 	(3, '3', '1', '1', '2', NULL, '2010-10-12', '123', '', '123', '123', '123', '2013-10-28 14:20:24', '2013-10-28 14:36:57', '1', '1', 0),
-	(4, '3, _empty', '1', '1', '1', NULL, '2013-10-09', '1', '1', '1', '1', '1', '2013-10-28 14:22:55', '2013-10-28 14:22:55', '1', '1', 0),
+	(4, '3', NULL, '1', '1', NULL, '2013-10-09', '1', '1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq', '1', '1', '1', '2013-10-28 14:22:55', '2013-12-21 14:16:01', '1', '1', 0),
 	(5, '3', '2', '1', '1', NULL, '2013-10-10', '3', '3', '3', '3', '3', '2013-10-28 14:46:07', '2013-10-28 14:46:07', '1', '1', 1),
 	(6, '3', '3', '3', '3', NULL, '2013-10-10', '3', '3', '3', '3', '3', '2013-10-28 14:55:00', '2013-10-28 14:55:00', '1', '1', 0),
 	(7, '1', '21', '21', '21', NULL, '2013-12-13', '21', '21', '21', '21', '21', '2013-12-14 21:43:30', '2013-12-14 21:43:30', '1', '1', 0),
