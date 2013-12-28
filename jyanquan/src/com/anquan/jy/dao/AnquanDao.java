@@ -195,7 +195,7 @@ public class AnquanDao {
 		
 		conn=DBConn.getConnection();
 		try {
-			ps=conn.prepareStatement("select count(*) count from drivers "+ sql);
+			ps=conn.prepareStatement("select count(*) count from drivers where deleted=0 "+ sql);
 			rs=ps.executeQuery();
 			if(rs.next()){
 				i=rs.getInt("count");
@@ -326,7 +326,7 @@ public static void main(String[] args) {
 	User user=checkLogin("admin", "admin");
 	System.out.println(user.getCreate_datetime());
 	*/
-	System.out.println(getDrivers("").size());
+
 	
 }
 }

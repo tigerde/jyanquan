@@ -251,7 +251,6 @@ public class TrafficViolationDao {
 			ps.setString(11, ta.getId());
 			
 			i=ps.executeUpdate();
-			System.out.println("sdfghjkl;'"+i);
 		} catch (SQLException e) {
 			log.error("updateTrafficViolation更新驾驶员交通违章信息", e);
 		}finally{

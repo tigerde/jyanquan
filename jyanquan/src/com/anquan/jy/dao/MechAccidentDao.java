@@ -251,7 +251,6 @@ public class MechAccidentDao {
 			ps.setString(12, ta.getId());
 			
 			i=ps.executeUpdate();
-			System.out.println("sdfghjkl;'"+i);
 		} catch (SQLException e) {
 			log.error("更新驾驶员交通事故信息", e);
 		}finally{
@@ -354,7 +353,6 @@ public class MechAccidentDao {
 		return i;
 	}
 	public static void main(String[] args) {
-		System.out.println(getTrafficAccident("3").getAccident_date());
 		
 	}
 	

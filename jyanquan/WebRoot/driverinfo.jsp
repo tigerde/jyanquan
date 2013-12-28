@@ -11,12 +11,14 @@ Map<String,String> map=(Map<String,String>)session.getAttribute("rolemap");
   <head>
     <base href="<%=basePath%>"/>
     
-    <title>My JSP 'index.jsp' starting page</title>
+    <title>温馨巴士 安全信息查询</title>
+    <link rel="shortcut icon" href="jifolder/images/jywx.ico"/>
 	<meta http-equiv="pragma" content="no-cache"/>
 	<meta http-equiv="cache-control" content="no-cache"/>
 	<meta http-equiv="expires" content="0"/>    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
 	<meta http-equiv="description" content="This is my page"/>
+	<link rel="shortcut icon" href="jifolder/images/jywx.ico"/>
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
@@ -24,6 +26,16 @@ Map<String,String> map=(Map<String,String>)session.getAttribute("rolemap");
 			href="jifolder/jquery.jqGrid-4.5.4/css/ui.jqgrid.css" />
 		<link rel="stylesheet" type="text/css" media="screen"
 			href="jifolder/jquery-ui/themes/redmond/jquery-ui1.css" />
+			
+		<style type="text/css">
+		<!--
+		body {
+			background-image: url(jifolder/images/background.jpg);
+			background-repeat: repeat;	
+		
+		}
+		-->
+		</style>	
 			
 			<!-- 引入jQuery -->
 		<script src="jifolder/jquery.jqGrid-4.5.4/js/jquery-1.9.0.min.js"
@@ -500,15 +512,15 @@ closeAfterEdit:true});
   
   <body>
   
-  	 <div>
+  	 <div align="center">
   	<label>欢迎</label>
   	<label><%=session.getAttribute("name").toString()%></label>
   	<%if("1".equals(map.get("muser_show"))){ %>
   	<a href="<%=basePath%>muser/showuser">用户管理</a>
   	<%} %>
-  	<a href="<%=basePath%>user/logout"><label>注销</label></a>
+  	<a href="<%=basePath%>user/logout">注销</a>
  	</div>
-  
+  	<div align="center">
   
     <table id="driverinfo"></table>
 	<div id="driverinfoPager"></div>
@@ -540,7 +552,7 @@ closeAfterEdit:true});
     <table id="company"></table>
 	<div id="companyPager"></div>
 	
-
+	</div>
 
   </body>
 </html>

@@ -67,7 +67,7 @@ public class DriverInfoBiz {
 		page.setPageSize(pageSize);
 		String sql=" order by "+sidx+" "+sord+" limit "+ (page.getPageNo() - 1) * page.getPageSize() + "," + page.getPageSize();
 		List<TrafficAccident> list=TrafficAccidentDao.getTrafficAccidents(id,sql);
-		System.out.println(list.size());
+		
 		JSONArray jsonArray=JSONArray.fromObject(list);		
 		JSONObject json=new JSONObject();
 		json.accumulate("account", jsonArray);
@@ -94,7 +94,7 @@ public class DriverInfoBiz {
 		page.setPageSize(pageSize);
 		String sql=" order by "+sidx+" "+sord+" limit "+ (page.getPageNo() - 1) * page.getPageSize() + "," + page.getPageSize();
 		List<TrafficAccident> list=MechAccidentDao.getTrafficAccidents(starttime,endtime,sql);
-		System.out.println(list.size());
+		
 		JSONArray jsonArray=JSONArray.fromObject(list);		
 		JSONObject json=new JSONObject();
 		json.accumulate("account", jsonArray);
@@ -121,7 +121,7 @@ public class DriverInfoBiz {
 		page.setPageSize(pageSize);
 		String sql=" order by "+sidx+" "+sord+" limit "+ (page.getPageNo() - 1) * page.getPageSize() + "," + page.getPageSize();
 		List<TrafficAccident> list=MechAccidentDao.getTrafficAccidents(id,sql);
-		System.out.println(list.size());
+		
 		JSONArray jsonArray=JSONArray.fromObject(list);		
 		JSONObject json=new JSONObject();
 		json.accumulate("account", jsonArray);
@@ -174,7 +174,7 @@ public class DriverInfoBiz {
 		page.setPageSize(pageSize);
 		String sql=" order by "+sidx+" "+sord+" limit "+ (page.getPageNo() - 1) * page.getPageSize() + "," + page.getPageSize();
 		List<TrafficViolation> list=TrafficViolationDao.getTrafficViolations(id,sql);
-		System.out.println(list.size());
+		
 		JSONArray jsonArray=JSONArray.fromObject(list);		
 		JSONObject json=new JSONObject();
 		json.accumulate("account", jsonArray);

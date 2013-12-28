@@ -13,12 +13,22 @@ Map<String,String> map=(Map<String,String>)session.getAttribute("rolemap");
   <head>
     <base href="<%=basePath%>"/>
     
-    <title>My JSP 'index.jsp' starting page</title>
+     <title>温馨巴士 安全信息查询</title>
+    <link rel="shortcut icon" href="jifolder/images/jywx.ico"/>
 	<meta http-equiv="pragma" content="no-cache"/>
 	<meta http-equiv="cache-control" content="no-cache"/>
 	<meta http-equiv="expires" content="0"/>    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
 	<meta http-equiv="description" content="This is my page"/>
+	<style type="text/css">
+	<!--
+	body {
+		background-image: url(jifolder/images/background.jpg);
+		background-repeat: repeat;	
+	
+	}
+	-->
+	</style>
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
@@ -62,7 +72,7 @@ Map<String,String> map=(Map<String,String>)session.getAttribute("rolemap");
 		     viewrecords:true,
 		     closeAfterAdd: true,
 		     rowNum:20,
-		     autowidth:true,
+		     width:1200,
 		     //autoheight:true,
 		     height: 460,
 		     rowList:[20,30,50],
@@ -146,16 +156,19 @@ Map<String,String> map=(Map<String,String>)session.getAttribute("rolemap");
   </head>
   
   <body>
-  <div>
+  <div align="center">
+  <div >
   	<label>欢迎</label>
   	<label><%=session.getAttribute("name").toString()%></label>
   	<%if("1".equals(map.get("muser_show"))){ %>
   	<a href="<%=basePath%>muser/showuser">用户管理</a>
   	<%} %>
-  	<a href="<%=basePath%>user/logout"><label>注销</label></a>
+  	<a href="<%=basePath%>user/logout">注销</a>
   </div>
+  	<div align="center">
     <table id="gridTable"></table>
 	<div id="gridPager"></div>
+	</div>
 	<%if("1".equals(map.get("select_show"))){ %>
 	<div>
 		<label>查询类型</label>
@@ -174,15 +187,12 @@ Map<String,String> map=(Map<String,String>)session.getAttribute("rolemap");
 		<input type="text" id="endtime" value="2013-12-14"/>
 		<button id="selectall"  >查询</button>
 	</div>
-	
-	<div id="selectdiv">
-		<table id="selectTable"></table>
-		<div id="selectPager"></div>
-	</div>
-	<iframe id="selectframe" src="" frameBorder=0 scrolling=no width="100%" height="500">
+	<div align="center">
+	<iframe id="selectframe" src="" frameBorder=0 scrolling=no width="100%" height="500" align="center">
 	
 	</iframe>
+	</div>
 	<%} %>
-
+	</div>
   </body>
 </html>

@@ -14,7 +14,7 @@ Map<String,String> map=(Map<String,String>)session.getAttribute("rolemap");
   <head>
     <base href="<%=basePath%>"/>
     
-    <title>My JSP 'index.jsp' starting page</title>
+    <title>温馨巴士 安全信息查询</title>
 	<meta http-equiv="pragma" content="no-cache"/>
 	<meta http-equiv="cache-control" content="no-cache"/>
 	<meta http-equiv="expires" content="0"/>
@@ -23,6 +23,17 @@ Map<String,String> map=(Map<String,String>)session.getAttribute("rolemap");
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+	
+	
+	<style type="text/css">
+	<!--
+	body {
+		background-image: url(jifolder/images/background.jpg);
+		background-repeat: repeat;	
+	
+	}
+	-->
+	</style>
 	<link rel="stylesheet" type="text/css" media="screen"
 			href="jifolder/jquery.jqGrid-4.5.4/css/ui.jqgrid.css" />
 		<link rel="stylesheet" type="text/css" media="screen"
@@ -482,9 +493,9 @@ Map<String,String> map=(Map<String,String>)session.getAttribute("rolemap");
   </head>
   
   <body>
-    
+    <div align="center">
 		<table id="select"></table>
 		<div id="selectPager"></div>
-  
+  	</div>
   </body>
 </html>

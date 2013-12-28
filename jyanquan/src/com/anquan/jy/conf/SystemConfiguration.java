@@ -50,7 +50,7 @@ public class SystemConfiguration {
 				prop.setProperty("mysql_username", "xx");
 				prop.setProperty("mysql_password", "xx");
 				logging.error("确认配置文件");
-				System.exit(0);
+				
 			}
 		} catch (IOException e) {
 			logging.error("io异常");

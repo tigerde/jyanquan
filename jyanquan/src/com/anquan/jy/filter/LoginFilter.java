@@ -23,19 +23,13 @@ public class LoginFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) freq;
 		HttpServletResponse res = (HttpServletResponse) fres;
 		String url = req.getRequestURI();
-		 System.out.println(url);
 		String[] pattern = url.split("/");
-		// System.out.println(url.split("/").length);
-
-		// System.out.println(req.getSession().getAttribute("userid")==null);
 		if (req.getSession().getAttribute("userid") == null) {
 			if (pattern.length > 2 && (pattern[2].equals("jifolder") || pattern[2].equals("login.jsp"))) {
 				filter.doFilter(req, res);
 			} else if (pattern.length > 3 && pattern[2].equals("user") && pattern[3].equals("login")) {
 				filter.doFilter(req, res);
 			} else {
-				// System.out.println("为什么不能用");
-				// res.sendRedirect("/jyanquan/login.jsp");
 				res.getWriter().print("<script type='text/javascript'>top.location = '/jyanquan/login.jsp';</script>");
 			}
 		} else {

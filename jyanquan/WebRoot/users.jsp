@@ -12,7 +12,8 @@ Map<String,String> map=(Map<String,String>)session.getAttribute("rolemap");
   <head>
     <base href="<%=basePath%>"/>
     
-    <title>My JSP 'index.jsp' starting page</title>
+     <title>温馨巴士驾驶员信息查询平台</title>
+    <link rel="shortcut icon" href="jifolder/images/jywx.ico"/>
 	<meta http-equiv="pragma" content="no-cache"/>
 	<meta http-equiv="cache-control" content="no-cache"/>
 	<meta http-equiv="expires" content="0"/>    
@@ -26,6 +27,15 @@ Map<String,String> map=(Map<String,String>)session.getAttribute("rolemap");
 		<link rel="stylesheet" type="text/css" media="screen"
 			href="jifolder/jquery-ui/themes/redmond/jquery-ui1.css" />
 			
+		<style type="text/css">
+		<!--
+		body {
+			background-image: url(jifolder/images/background.jpg);
+			background-repeat: repeat;	
+		
+		}
+		-->
+		</style>
 			<!-- 引入jQuery -->
 		<script type="text/javascript" src="jifolder/jquery.jqGrid-4.5.4/js/jquery-1.9.0.min.js"></script>
 		<script type="text/javascript" src="jifolder/jquery.jqGrid-4.5.4/js/i18n/grid.locale-cn.js"></script>
@@ -58,7 +68,7 @@ Map<String,String> map=(Map<String,String>)session.getAttribute("rolemap");
 		     viewrecords:true,
 		     closeAfterAdd: true,
 		     rowNum:20,
-		     autowidth:true,
+		     width:1200,
 		     autoheight:true,
 		     height: 260,
 		     rowList:[10,15,20],
@@ -198,50 +208,51 @@ closeAfterEdit:true});
 		document.getElementById("checkdiv").style.display="none";
 	}
 	
-	
-		
 	</script>
 	
   </head>
   
   <body>
-  <div>
+  <div align="center">
   	<label>欢迎</label>
   	<label><%=session.getAttribute("name").toString()%></label>
   		<%if("1".equals(map.get("muser_show"))){ %>
   	<a href="<%=basePath%>muser/showuser">用户管理</a>
   	<%} %>
-  	<a href="<%=basePath%>user/logout"><label>注销</label></a>
+  	<a href="<%=basePath%>user/logout">注销</a>
   </div>
-    <table id="gridTable"></table>
-	<div id="gridPager"></div>
-	<div id="checkdiv" style="display: none;" >
+  	<div align="center">
+	    <table id="gridTable"></table>
+		<div id="gridPager"></div>
+	</div>
+	<div id="checkdiv" style="display: none;"  align="center">
 		<label id="user_name_title">用户权限配置</label>
 		<!-- <button>全选</button>  -->	
 		<button onclick="saverole();">保存</button>
 		<input id="user_id" name="user_id" type="hidden"/>
-		<div>查询页面</div>
-		<div>
-			<input id="driver_show" type="checkbox" name="driver_show" checked="checked"/>查看
-			<input id="driver_add" type="checkbox" name="driver_add" />创建
-			<input id="driver_edit" type="checkbox" name="driver_edit" />编辑
-			<input id="driver_del" type="checkbox" name="driver_del" />删除
-		</div>
-		<div>分组查询</div>
-		<div>
-			<input id="select_show" type="checkbox" name="select_show" checked="checked"/>查看
-			<input id="select_add" type="checkbox" name="select_add" />创建
-			<input id="select_edit" type="checkbox" name="select_edit" />编辑
-			<input id="select_del" type="checkbox" name="select_del" />删除
-		</div>
 		<div>用户管理</div>
 		<div>
 			<input id="muser_show" type="checkbox" name="muser_show" checked="checked"/>查看
-			<input id="muser_add" type="checkbox" name="muser_add" />创建
+			<input id="muser_add" type="checkbox" name="muser_add" />添加
 			<input id="muser_edit" type="checkbox" name="muser_edit" />编辑
 			<input id="muser_del" type="checkbox" name="muser_del" />删除
 			<input id="muser_pw" type="checkbox" name="muser_pw" />权限编辑
 		</div>
+		<div>首页查询</div>
+		<div>
+			<input id="driver_show" type="checkbox" name="driver_show" checked="checked"/>查看
+			<input id="driver_add" type="checkbox" name="driver_add" />添加
+			<input id="driver_edit" type="checkbox" name="driver_edit" />编辑
+			<input id="driver_del" type="checkbox" name="driver_del" />删除
+		</div>
+		<div>分类查询</div>
+		<div>
+			<input id="select_show" type="checkbox" name="select_show" checked="checked"/>查看
+			<input id="select_add" type="checkbox" name="select_add" />添加
+			<input id="select_edit" type="checkbox" name="select_edit" />编辑
+			<input id="select_del" type="checkbox" name="select_del" />删除
+		</div>
+		
 		<div>用户详情</div>
 		<div >
 			<div>
@@ -252,49 +263,49 @@ closeAfterEdit:true});
 			<div>
 				交通事故
 				<input id="accident_show" type="checkbox" name="accident_show" checked="checked"/>查看
-				<input id="accident_add" type="checkbox" name="accident_add" />创建
+				<input id="accident_add" type="checkbox" name="accident_add" />添加
 				<input id="accident_edit" type="checkbox" name="accident_edit" />编辑
 				<input id="accident_del" type="checkbox" name="accident_del" />删除
 			</div>
 			<div>
 				交通违章
 				<input id="violation_show" type="checkbox" name="violation_show" checked="checked"/>查看
-				<input id="violation_add" type="checkbox" name="violation_add" />创建
+				<input id="violation_add" type="checkbox" name="violation_add" />添加
 				<input id="violation_edit" type="checkbox" name="violation_edit" />编辑
 				<input id="violation_del" type="checkbox" name="violation_del" />删除
 			</div>
 			<div>
 				机械事故
 				<input id="mechanical_show" type="checkbox" name="mechanical_show" checked="checked"/>查看
-				<input id="mechanical_add" type="checkbox" name="mechanical_add" />创建
+				<input id="mechanical_add" type="checkbox" name="mechanical_add" />添加
 				<input id="mechanical_edit" type="checkbox" name="mechanical_edit" />编辑
 				<input id="mechanical_del" type="checkbox" name="mechanical_del" />删除
 			</div>
 			<div>
 				良好行为
 				<input id="behavior_show" type="checkbox" name="behavior_show" checked="checked"/>查看
-				<input id="behavior_add" type="checkbox" name="behavior_add" />创建
+				<input id="behavior_add" type="checkbox" name="behavior_add" />添加
 				<input id="behavior_edit" type="checkbox" name="behavior_edit" />编辑
 				<input id="behavior_del" type="checkbox" name="behavior_del" />删除
 			</div>
 			<div>
 				不良行为
 				<input id="badbehavior_show" type="checkbox" name="badbehavior_show" checked="checked"/>查看
-				<input id="badbehavior_add" type="checkbox" name="badbehavior_add" />创建
+				<input id="badbehavior_add" type="checkbox" name="badbehavior_add" />添加
 				<input id="badbehavior_edit" type="checkbox" name="badbehavior_edit" />编辑
 				<input id="badbehavior_del" type="checkbox" name="badbehavior_del" />删除
 			</div>
 			<div>
 				驾驶员违纪
 				<input id="discipline_show" type="checkbox" name="discipline_show" checked="checked"/>查看
-				<input id="discipline_add" type="checkbox" name="discipline_add" />创建
+				<input id="discipline_add" type="checkbox" name="discipline_add" />添加
 				<input id="discipline_edit" type="checkbox" name="discipline_edit" />编辑
 				<input id="discipline_del" type="checkbox" name="discipline_del" />删除
 			</div>
 			<div>
 				驾驶员安全里程
 				<input id="distance_show" type="checkbox" name="distance_show" checked="checked"/>查看
-				<input id="distance_add" type="checkbox" name="distance_add" />创建
+				<input id="distance_add" type="checkbox" name="distance_add" />添加
 				<input id="distance_edit" type="checkbox" name="distance_edit" />编辑
 				<input id="distance_del" type="checkbox" name="distance_del" />删除
 			</div>
