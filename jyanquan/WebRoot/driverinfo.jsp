@@ -12,7 +12,7 @@ Map<String,String> map=(Map<String,String>)session.getAttribute("rolemap");
     <base href="<%=basePath%>"/>
     
     <title>温馨巴士 安全信息查询</title>
-    <link rel="shortcut icon" href="jifolder/images/jywx.ico"/>
+    <link rel="shortcut icon" href="<%=basePath%>jifolder/images/jywx.ico"/>
 	<meta http-equiv="pragma" content="no-cache"/>
 	<meta http-equiv="cache-control" content="no-cache"/>
 	<meta http-equiv="expires" content="0"/>    

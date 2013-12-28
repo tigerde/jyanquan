@@ -7,14 +7,18 @@
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 1.0 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
 <HTML xmlns="http://www.w3.org/1999/xhtml">
-<HEAD><TITLE>用户登录</TITLE>
+<HEAD>
+<TITLE>用户登录</TITLE>
 <base href="<%=basePath%>">
+<link rel="shortcut icon" href="jifolder/images/jywx.ico"/>
 <LINK href="jifolder/images/Default.css" type=text/css rel=stylesheet>
 <LINK href="jifolder/images/xtree.css" type=text/css rel=stylesheet>
 <LINK href="jifolder/images/User_Login.css" type=text/css rel=stylesheet>
-<META http-equiv=Content-Type content="text/html; charset=gb2312">
+<!-- 
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+ -->
 <META content="MSHTML 6.00.6000.16674" name=GENERATOR>
-<script src="<%=path%>/jifolder/js/jquery-1.6.1.min.js" type="text/javascript"></script>
+<script src="jifolder/js/jquery-1.6.1.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 	
 
